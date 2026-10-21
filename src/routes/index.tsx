@@ -1,24 +1,214 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
+import heroImg from "@/assets/hero.jpg";
+import aboutImg from "@/assets/about.jpg";
+import { homeGallery } from "@/lib/gallery-data";
+import { ArrowRight } from "lucide-react";
 
-// No head() here: the home route inherits title/description/og/twitter from
-// __root.tsx, and ships no og:image so serve-time hosting can inject the
-// project's social preview (explicit og:image or latest screenshot).
 export const Route = createFileRoute("/")({
+  head: () => ({
+    meta: [
+      { title: "Vickies Glam Makeup Studio | Bridal & Event Makeup Artist" },
+      {
+        name: "description",
+        content:
+          "Effortless beauty for every occasion. Bridal, special event, editorial and everyday glam makeup by Vickie, a professional freelance makeup artist in Canada.",
+      },
+      { property: "og:title", content: "Vickies Glam Makeup Studio" },
+      {
+        property: "og:description",
+        content: "Effortless beauty for every occasion — bridal, special event, editorial and everyday glam makeup.",
+      },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
+    ],
+  }),
   component: Index,
 });
 
-// IMPORTANT: Replace this placeholder. See ./README.md for routing conventions.
+const services = [
+  {
+    title: "Bridal Makeup",
+    blurb: "Timeless, camera-ready glam for your wedding day — soft, romantic, or full classic bridal.",
+  },
+  {
+    title: "Special Event Makeup",
+    blurb: "Polished looks for galas, parties and nights out, tailored to your outfit and the occasion.",
+  },
+  {
+    title: "Editorial & Photoshoot Makeup",
+    blurb: "Creative, high-impact makeup for photo and video shoots that reads beautifully on camera.",
+  },
+];
+
+const testimonials = [
+  {
+    quote:
+      "Vickie made me feel like the best version of myself on my wedding day. The makeup lasted from morning photos to the last dance.",
+    name: "Amara — Bridal Client",
+  },
+  {
+    quote:
+      "Professional, punctual and incredibly talented. Every look she created for my shoot was flawless on camera.",
+    name: "Danielle — Editorial Client",
+  },
+  {
+    quote:
+      "Every event I book her for, I get compliments all night long. Calm, kind and worth every penny.",
+    name: "Priya — Special Event Client",
+  },
+];
+
+function SectionHeading({ eyebrow, title }: { eyebrow: string; title: string }) {
+  return (
+    <div className="text-center">
+      <span className="gold-rule" />
+      <p className="mt-4 text-xs uppercase tracking-[0.3em] text-muted-foreground">{eyebrow}</p>
+      <h2 className="mt-3 text-3xl font-medium tracking-wide sm:text-4xl">{title}</h2>
+    </div>
+  );
+}
+
 function Index() {
   return (
-    <div
-      className="flex min-h-screen items-center justify-center"
-      style={{ backgroundColor: "#fcfbf8" }}
-    >
-      <img
-        data-lovable-blank-page-placeholder="REMOVE_THIS"
-        src="https://cdn.gpteng.co/blank-app-v1.svg"
-        alt="Your app will live here!"
-      />
+    <div>
+      {/* Hero */}
+      <section className="relative flex min-h-[80vh] items-center justify-center overflow-hidden">
+        <img
+          src={heroImg}
+          alt="Close-up of a glamorous makeup look in warm golden light"
+          className="absolute inset-0 h-full w-full object-cover"
+          width={1920}
+          height={1088}
+          fetchPriority="high"
+        />
+        <div className="absolute inset-0 bg-ink/45" />
+        <div className="relative z-10 mx-auto max-w-3xl px-6 text-center text-cream">
+          <p className="text-xs uppercase tracking-[0.4em] text-blush">Vickies Glam Makeup Studio</p>
+          <h1 className="mt-6 text-4xl font-medium leading-tight tracking-wide sm:text-5xl md:text-6xl">
+            Effortless Beauty for Every Occasion
+          </h1>
+          <p className="mx-auto mt-6 max-w-xl text-base font-light tracking-wide text-cream/85 sm:text-lg">
+            Bridal, special event, editorial, and everyday glam makeup.
+          </p>
+          <Link to="/booking" className="btn-gold mt-10">
+            Book me now
+          </Link>
+        </div>
+      </section>
+
+      {/* About preview */}
+      <section className="bg-secondary/40 py-20 sm:py-24">
+        <div className="mx-auto grid max-w-5xl items-center gap-12 px-4 sm:px-6 md:grid-cols-[minmax(0,2fr)_minmax(0,3fr)]">
+          <img
+            src={aboutImg}
+            alt="Vickie applying makeup on a client in her studio"
+            className="mx-auto w-full max-w-sm object-cover shadow-lg md:max-w-none"
+            width={896}
+            height={1152}
+            loading="lazy"
+          />
+          <div>
+            <span className="gold-rule" />
+            <p className="mt-4 text-xs uppercase tracking-[0.3em] text-muted-foreground">About the artist</p>
+            <h2 className="mt-3 text-3xl font-medium tracking-wide sm:text-4xl">Meet Vickie</h2>
+            <p className="mt-6 leading-relaxed text-foreground/80">
+              I'm Vickie, a professional freelance makeup artist based in Canada, specializing in
+              bridal, special event and editorial glam. With a soft, luminous approach and an eye
+              for detail, I create looks that feel like you — only elevated.
+            </p>
+            <p className="mt-4 leading-relaxed text-foreground/80">
+              Every appointment is calm, unhurried and all about you, from the first brushstroke to
+              the final touch-up.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      {/* Services preview */}
+      <section className="py-20 sm:py-24">
+        <div className="mx-auto max-w-5xl px-4 sm:px-6">
+          <SectionHeading eyebrow="Services" title="How I can glam you" />
+          <div className="mt-14 grid gap-6 sm:grid-cols-3">
+            {services.map((s) => (
+              <Link
+                key={s.title}
+                to="/services"
+                className="group border border-border bg-card p-8 text-center transition-colors hover:border-gold"
+              >
+                <h3 className="text-2xl font-medium tracking-wide">{s.title}</h3>
+                <p className="mt-4 text-sm leading-relaxed text-muted-foreground">{s.blurb}</p>
+                <span className="mt-6 inline-flex items-center gap-2 text-xs uppercase tracking-[0.2em] text-crimson">
+                  Explore
+                  <ArrowRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-1" />
+                </span>
+              </Link>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Selected portfolio */}
+      <section className="bg-secondary/40 py-20 sm:py-24">
+        <div className="mx-auto max-w-6xl px-4 sm:px-6">
+          <SectionHeading eyebrow="Portfolio" title="Selected work" />
+          <div className="mt-14 grid grid-cols-2 gap-3 sm:gap-4 lg:grid-cols-3">
+            {homeGallery.map((item) => (
+              <img
+                key={item.src}
+                src={item.src}
+                alt={item.alt}
+                className="aspect-[3/4] w-full object-cover transition-transform duration-500 hover:scale-[1.02]"
+                width={912}
+                height={1200}
+                loading="lazy"
+              />
+            ))}
+          </div>
+          <div className="mt-12 text-center">
+            <Link to="/portfolio" className="btn-outline">
+              View full portfolio
+            </Link>
+          </div>
+        </div>
+      </section>
+
+      {/* Testimonials */}
+      <section className="py-20 sm:py-24">
+        <div className="mx-auto max-w-5xl px-4 sm:px-6">
+          <SectionHeading eyebrow="Kind words" title="What clients say" />
+          <div className="mt-14 grid gap-6 md:grid-cols-3">
+            {testimonials.map((t) => (
+              <figure key={t.name} className="border-t border-gold/60 pt-6">
+                <blockquote className="text-sm italic leading-relaxed text-foreground/80">
+                  &ldquo;{t.quote}&rdquo;
+                </blockquote>
+                <figcaption className="mt-4 text-xs uppercase tracking-[0.2em] text-muted-foreground">
+                  {t.name}
+                </figcaption>
+              </figure>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Final CTA */}
+      <section className="bg-crimson py-20 text-center text-crimson-foreground sm:py-24">
+        <div className="mx-auto max-w-2xl px-4 sm:px-6">
+          <p className="text-xs uppercase tracking-[0.3em] text-cream/70">Limited dates each month</p>
+          <h2 className="mt-4 text-3xl font-medium tracking-wide sm:text-4xl">
+            Ready for your glam?
+          </h2>
+          <p className="mt-4 text-sm text-cream/80">
+            Request your date and I'll confirm availability within 24 hours.
+          </p>
+          <Link
+            to="/booking"
+            className="btn-gold mt-8 hover:bg-cream hover:text-ink"
+          >
+            Book me now
+          </Link>
+        </div>
+      </section>
     </div>
   );
 }
