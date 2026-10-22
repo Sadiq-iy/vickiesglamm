@@ -16,6 +16,9 @@ export function SiteFooter() {
             <a href="mailto:hello@vickiesglam.ca" className="mt-3 block text-cream/80 hover:text-gold">
               hello@vickiesglam.ca
             </a>
+            <a href="tel:+15878372558" className="mt-2 block text-cream/80 hover:text-gold">
+              +1 (587) 837-2558
+            </a>
             <a
               href="https://instagram.com/vickiesglam"
               target="_blank"

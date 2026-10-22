@@ -1,6 +1,7 @@
 # Roadmap
 
 - [x] Home, Portfolio, Services, Booking, Contact pages (brand brief)
-- [ ] Rates page from uploaded rate cards (modern, luxurious, brand colours; ignore long wedding form)
-- [ ] Verify all pages build and render (incl. mobile nav + booking flow)
-- [ ] Confirm invented details with user: email hello@vickiesglam.ca, IG @vickiesglam, service area, business hours, testimonials
+- [x] Rates page from uploaded rate cards (brand colours; bridal form excluded)
+- [x] Verify build, all pages, mobile nav and booking flow
+- [ ] Awaiting user confirmation: bridal trial price ($150 trifold vs $100 flyer) and payment method (e-transfer only vs cash accepted)
+- [ ] Awaiting user correction of invented details: email hello@vickiesglam.ca, Instagram @vickiesglam, business hours, testimonials
