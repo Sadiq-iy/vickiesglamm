@@ -71,7 +71,9 @@ function Services() {
                   <p className="mt-3 text-xs uppercase tracking-[0.18em] text-muted-foreground">
                     {pkg.detail}
                   </p>
-                  <p className="mt-4 text-sm italic text-crimson">Pricing available on request.</p>
+                  <Link to="/rates" className="mt-4 inline-block text-sm italic text-crimson hover:underline">
+                    Pricing available on request — view the full rate card.
+                  </Link>
                 </div>
                 <Link to="/booking" className="btn-gold shrink-0 self-start md:self-center">
                   Book me now
