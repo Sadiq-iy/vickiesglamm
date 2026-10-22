@@ -72,8 +72,8 @@ function Booking() {
     fullName: "",
     email: "",
     phone: "",
-    service: SERVICE_TYPES[0],
-    time: TIMES[0],
+    service: "Bridal Makeup",
+    time: "Morning",
     notes: "",
   });
 
@@ -121,8 +121,8 @@ function Booking() {
       fullName: "",
       email: "",
       phone: "",
-      service: SERVICE_TYPES[0],
-      time: TIMES[0],
+      service: "Bridal Makeup",
+      time: "Morning",
       notes: "",
     });
   }

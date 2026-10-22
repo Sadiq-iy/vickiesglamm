@@ -31,12 +31,18 @@ export const galleryItems: GalleryItem[] = [
 
 export const categories: GalleryCategory[] = ["Bridal", "Special Events", "Editorial"];
 
+const item = (index: number): GalleryItem => {
+  const found = galleryItems[index];
+  if (!found) throw new Error(`Gallery index ${index} out of range`);
+  return found;
+};
+
 /** Six looks featured on the home page. */
 export const homeGallery: GalleryItem[] = [
-  galleryItems[0],
-  galleryItems[3],
-  galleryItems[6],
-  galleryItems[1],
-  galleryItems[4],
-  galleryItems[8],
+  item(0),
+  item(3),
+  item(6),
+  item(1),
+  item(4),
+  item(8),
 ];
