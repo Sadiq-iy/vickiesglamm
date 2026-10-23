@@ -7,12 +7,12 @@ export const Route = createFileRoute("/services")({
       {
         name: "description",
         content:
-          "Bridal makeup, special event makeup and editorial & photoshoot makeup packages by Vickies Glam Makeup Studio. Pricing available on request.",
+          "Bridal makeup and special event makeup packages by Vickies Glam Makeup Studio in Calgary. Pricing available on request.",
       },
       { property: "og:title", content: "Services | Vickies Glam Makeup Studio" },
       {
         property: "og:description",
-        content: "Bridal, special event and editorial makeup packages. Pricing available on request.",
+        content: "Bridal and special event makeup packages. Pricing available on request.",
       },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
@@ -33,12 +33,6 @@ const packages = [
     description:
       "Polished, camera-ready glam for galas, birthdays, graduations, engagements and nights out. Every look is tailored to your outfit, the lighting and the occasion.",
     detail: "Group bookings welcome — perfect for proms and bridal parties.",
-  },
-  {
-    title: "Editorial & Photoshoot Makeup",
-    description:
-      "Creative, high-impact makeup designed to read beautifully on camera — from clean beauty to bold, artistic concepts for photo and video shoots.",
-    detail: "Half-day and full-day rates available on set.",
   },
 ];
 
