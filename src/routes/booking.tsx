@@ -8,7 +8,7 @@ export const Route = createFileRoute("/booking")({
       {
         name: "description",
         content:
-          "Check availability and request your appointment with Vickies Glam Makeup Studio — bridal, special event and editorial makeup across Canada.",
+          "Check availability and request your appointment with Vickies Glam Makeup Studio — bridal and special event makeup in Calgary.",
       },
       { property: "og:title", content: "Booking | Vickies Glam Makeup Studio" },
       {
@@ -50,7 +50,7 @@ const MONTHS = [
   "July", "August", "September", "October", "November", "December",
 ];
 
-const SERVICE_TYPES = ["Bridal Makeup", "Special Event Makeup", "Editorial & Photoshoot Makeup"];
+const SERVICE_TYPES = ["Bridal Makeup", "Special Event Makeup"];
 const TIMES = ["Morning", "Afternoon", "Evening"];
 
 interface BookingRequest {

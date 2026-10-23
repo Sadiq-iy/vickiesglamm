@@ -11,12 +11,12 @@ export const Route = createFileRoute("/")({
       {
         name: "description",
         content:
-          "Effortless beauty for every occasion. Bridal, special event, editorial and everyday glam makeup by Vickie, a professional freelance makeup artist in Canada.",
+          "Effortless beauty for every occasion. Bridal, special event and everyday glam makeup by Vickie, a professional freelance makeup artist in Calgary, Alberta.",
       },
       { property: "og:title", content: "Vickies Glam Makeup Studio" },
       {
         property: "og:description",
-        content: "Effortless beauty for every occasion — bridal, special event, editorial and everyday glam makeup.",
+        content: "Effortless beauty for every occasion — bridal, special event and everyday glam makeup.",
       },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
@@ -34,10 +34,6 @@ const services = [
     title: "Special Event Makeup",
     blurb: "Polished looks for galas, parties and nights out, tailored to your outfit and the occasion.",
   },
-  {
-    title: "Editorial & Photoshoot Makeup",
-    blurb: "Creative, high-impact makeup for photo and video shoots that reads beautifully on camera.",
-  },
 ];
 
 const testimonials = [
@@ -49,7 +45,7 @@ const testimonials = [
   {
     quote:
       "Professional, punctual and incredibly talented. Every look she created for my shoot was flawless on camera.",
-    name: "Danielle — Editorial Client",
+    name: "Danielle — Event Client",
   },
   {
     quote:
@@ -88,7 +84,7 @@ function Index() {
             Effortless Beauty for Every Occasion
           </h1>
           <p className="mx-auto mt-6 max-w-xl text-base font-light tracking-wide text-cream/85 sm:text-lg">
-            Bridal, special event, editorial, and everyday glam makeup.
+            Bridal, special event, and everyday glam makeup.
           </p>
           <Link to="/booking" className="btn-gold mt-10">
             Book me now
@@ -112,9 +108,9 @@ function Index() {
             <p className="mt-4 text-xs uppercase tracking-[0.3em] text-muted-foreground">About the artist</p>
             <h2 className="mt-3 text-3xl font-medium tracking-wide sm:text-4xl">Meet Vickie</h2>
             <p className="mt-6 leading-relaxed text-foreground/80">
-              I'm Vickie, a professional freelance makeup artist based in Canada, specializing in
-              bridal, special event and editorial glam. With a soft, luminous approach and an eye
-              for detail, I create looks that feel like you — only elevated.
+              I'm Vickie, a professional freelance makeup artist based in Calgary, specializing in
+              bridal and special event glam. With a soft, luminous approach and an eye for detail,
+              I create looks that feel like you — only elevated.
             </p>
             <p className="mt-4 leading-relaxed text-foreground/80">
               Every appointment is calm, unhurried and all about you, from the first brushstroke to
@@ -128,7 +124,7 @@ function Index() {
       <section className="py-20 sm:py-24">
         <div className="mx-auto max-w-5xl px-4 sm:px-6">
           <SectionHeading eyebrow="Services" title="How I can glam you" />
-          <div className="mt-14 grid gap-6 sm:grid-cols-3">
+          <div className="mx-auto mt-14 grid max-w-3xl gap-6 sm:grid-cols-2">
             {services.map((s) => (
               <Link
                 key={s.title}
