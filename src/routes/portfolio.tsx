@@ -8,12 +8,12 @@ export const Route = createFileRoute("/portfolio")({
       {
         name: "description",
         content:
-          "A curated gallery of bridal, special event and editorial makeup looks by Vickies Glam Makeup Studio.",
+          "A curated gallery of bridal and special event makeup looks by Vickies Glam Makeup Studio.",
       },
       { property: "og:title", content: "Portfolio | Vickies Glam Makeup Studio" },
       {
         property: "og:description",
-        content: "Bridal, special event and editorial makeup looks by Vickies Glam.",
+        content: "Bridal and special event makeup looks by Vickies Glam.",
       },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
@@ -31,7 +31,7 @@ function Portfolio() {
           <p className="mt-4 text-xs uppercase tracking-[0.3em] text-muted-foreground">Portfolio</p>
           <h1 className="mt-3 text-4xl font-medium tracking-wide sm:text-5xl">The work</h1>
           <p className="mx-auto mt-4 max-w-xl text-sm leading-relaxed text-muted-foreground">
-            A selection of recent bridal, special event and editorial looks. Every face is
+            A selection of recent bridal and special event looks. Every face is
             different — every look is built for you.
           </p>
         </div>
