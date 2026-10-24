@@ -1,4 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
+import { Download } from "lucide-react";
 
 export const Route = createFileRoute("/rates")({
   head: () => ({
@@ -7,12 +8,12 @@ export const Route = createFileRoute("/rates")({
       {
         name: "description",
         content:
-          "The official Vickies Glam rate card — bridal makeup from $450, studio appointments $100, on-location $150, plus booking policies.",
+          "The official Vickies Glam rate card — studio appointments $100, on-location $150, bridal makeup $500, wedding party $150, and makeup classes from $750.",
       },
       { property: "og:title", content: "Rates | Vickies Glam Makeup Studio" },
       {
         property: "og:description",
-        content: "Bridal and event makeup rates and booking policies by Vickies Glam.",
+        content: "Bridal, event and makeup class rates and booking policies by Vickies Glam.",
       },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
@@ -21,39 +22,23 @@ export const Route = createFileRoute("/rates")({
   component: Rates,
 });
 
+interface SubRate {
+  label: string;
+  description?: string;
+  price: string;
+  per?: string;
+}
+
 interface RateRow {
   title: string;
   description: string;
-  price: string;
+  price?: string;
   per?: string;
   note?: string;
+  subRows?: SubRate[];
 }
 
-const bridalRates: RateRow[] = [
-  {
-    title: "Bridal Makeup Experience",
-    description:
-      "A personalized bridal makeup application designed around your preferred look, wedding style and photography needs. Includes lashes and a long-lasting, flawless finish.",
-    price: "$450",
-    note: "Includes lashes · long-lasting, flawless finish",
-  },
-  {
-    title: "Bridesmaids / Bridal Party Makeup",
-    description:
-      "Soft, flawless and long-lasting makeup designed to complement the bride and photograph beautifully.",
-    price: "$150",
-    per: "per person",
-  },
-  {
-    title: "Bridal Makeup Trial",
-    description:
-      "A trial session to discuss and test your desired bridal look before the wedding day — so we arrive at the final direction together, with confidence.",
-    price: "$150",
-    note: "Optional but highly recommended · included in the $450 bridal makeup when booked together",
-  },
-];
-
-const eventRates: RateRow[] = [
+const serviceRates: RateRow[] = [
   {
     title: "Studio Appointment",
     description:
@@ -61,11 +46,40 @@ const eventRates: RateRow[] = [
     price: "$100",
   },
   {
-    title: "On-Location Makeup",
-    description:
-      "Full glam brought to you, wherever the occasion takes place. Travel is quoted with your booking.",
+    title: "On-Location Appointment",
+    description: "Full glam brought to you, wherever the occasion takes place.",
     price: "$150",
-    note: "Additional charges may apply depending on your location",
+    note: "Additional charges depend on location",
+  },
+  {
+    title: "Bridal Makeup",
+    description:
+      "A personalized bridal makeup application designed around your preferred look, wedding style and photography needs. Includes lashes and a long-lasting, flawless finish.",
+    price: "$500",
+  },
+  {
+    title: "Wedding Party",
+    description:
+      "Soft, flawless and long-lasting makeup designed to complement the bride and photograph beautifully.",
+    price: "$150",
+    per: "per person",
+  },
+  {
+    title: "Makeup Classes",
+    description: "Hands-on training designed around your goals.",
+    subRows: [
+      {
+        label: "Professional Training",
+        description: "Intensive, hands-on training for aspiring makeup artists.",
+        price: "$2,000",
+        per: "3 weeks",
+      },
+      {
+        label: "Personal Training",
+        description: "Learn to do your makeup yourself.",
+        price: "$750",
+      },
+    ],
   },
 ];
 
@@ -110,13 +124,35 @@ function RateCard({ title, eyebrow, rows, band }: { title: string; eyebrow: stri
                   {row.note}
                 </p>
               )}
-            </div>
-            <div className="text-left md:text-right">
-              <p className="text-4xl font-medium tracking-wide text-crimson">{row.price}</p>
-              {row.per && (
-                <p className="mt-1 text-xs uppercase tracking-[0.2em] text-muted-foreground">{row.per}</p>
+              {row.subRows && (
+                <div className="mt-4 space-y-4 border-l border-gold/60 pl-4">
+                  {row.subRows.map((sub) => (
+                    <div key={sub.label} className="grid gap-2 sm:grid-cols-[minmax(0,1fr)_auto] sm:items-baseline sm:gap-6">
+                      <div>
+                        <p className="font-medium tracking-wide">{sub.label}</p>
+                        {sub.description && (
+                          <p className="mt-1 text-sm leading-relaxed text-foreground/80">{sub.description}</p>
+                        )}
+                      </div>
+                      <div className="sm:text-right">
+                        <p className="text-2xl font-medium tracking-wide text-crimson">{sub.price}</p>
+                        {sub.per && (
+                          <p className="text-xs uppercase tracking-[0.2em] text-muted-foreground">{sub.per}</p>
+                        )}
+                      </div>
+                    </div>
+                  ))}
+                </div>
               )}
             </div>
+            {row.price && (
+              <div className="text-left md:text-right">
+                <p className="text-4xl font-medium tracking-wide text-crimson">{row.price}</p>
+                {row.per && (
+                  <p className="mt-1 text-xs uppercase tracking-[0.2em] text-muted-foreground">{row.per}</p>
+                )}
+              </div>
+            )}
           </div>
         ))}
       </div>
@@ -161,17 +197,24 @@ function Rates() {
 
         <div className="mt-14 space-y-8">
           <RateCard
-            eyebrow="Weddings"
-            title="Bridal rate card"
-            rows={bridalRates}
-            band="A 50% deposit is required to secure your wedding date — applied toward your total balance."
+            eyebrow="Services"
+            title="My Services"
+            rows={serviceRates}
+            band="A 50% deposit secures wedding dates · payment by e-transfer · payment details are provided once your appointment is confirmed."
           />
-          <RateCard
-            eyebrow="Studio & events"
-            title="Makeup rate card"
-            rows={eventRates}
-            band="Payment by e-transfer · payment details are provided once your appointment is confirmed."
-          />
+
+          {/* PDF download */}
+          <div className="text-center">
+            <p className="text-sm text-muted-foreground">Prefer a copy to keep or share?</p>
+            <a
+              href="/downloads/Vickie-Makeup-Rate-Card.pdf"
+              download="Vickie-Makeup-Rate-Card.pdf"
+              className="btn-gold mt-4"
+            >
+              <Download className="mr-2 h-4 w-4" aria-hidden />
+              Download Rate Card (PDF)
+            </a>
+          </div>
 
           {/* Policies */}
           <section className="border border-border bg-secondary/30 p-8 sm:p-10">
