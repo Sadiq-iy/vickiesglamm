@@ -1,6 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import heroImg from "@/assets/hero.jpg";
-import aboutImg from "@/assets/about.jpg";
+import heroAsset from "@/assets/hero-face.jpg.asset.json";
+import aboutAsset from "@/assets/about-vickie.jpg.asset.json";
 import { homeGallery } from "@/lib/gallery-data";
 import { ArrowRight } from "lucide-react";
 
@@ -70,11 +70,12 @@ function Index() {
       {/* Hero */}
       <section className="relative flex min-h-[80vh] items-center justify-center overflow-hidden">
         <img
-          src={heroImg}
-          alt="Close-up of a glamorous makeup look in warm golden light"
+          src={heroAsset.url}
+          alt="Vickie wearing soft glam makeup with lilac eyeshadow and glossy lips"
           className="absolute inset-0 h-full w-full object-cover"
-          width={1920}
-          height={1088}
+          style={{ objectPosition: "50% 30%" }}
+          width={720}
+          height={720}
           fetchPriority="high"
         />
         <div className="absolute inset-0 bg-ink/45" />
@@ -86,9 +87,6 @@ function Index() {
           <p className="mx-auto mt-6 max-w-xl text-base font-light tracking-wide text-cream/85 sm:text-lg">
             Bridal, special event, and everyday glam makeup.
           </p>
-          <Link to="/booking" className="btn-gold mt-10">
-            Book me now
-          </Link>
         </div>
       </section>
 
@@ -96,11 +94,11 @@ function Index() {
       <section className="bg-secondary/40 py-20 sm:py-24">
         <div className="mx-auto grid max-w-5xl items-center gap-12 px-4 sm:px-6 md:grid-cols-[minmax(0,2fr)_minmax(0,3fr)]">
           <img
-            src={aboutImg}
-            alt="Vickie applying makeup on a client in her studio"
+            src={aboutAsset.url}
+            alt="Vickie wearing a warm-toned glam makeup look"
             className="mx-auto w-full max-w-sm object-cover shadow-lg md:max-w-none"
-            width={896}
-            height={1152}
+            width={780}
+            height={970}
             loading="lazy"
           />
           <div>
@@ -108,13 +106,19 @@ function Index() {
             <p className="mt-4 text-xs uppercase tracking-[0.3em] text-muted-foreground">About the artist</p>
             <h2 className="mt-3 text-3xl font-medium tracking-wide sm:text-4xl">Meet Vickie</h2>
             <p className="mt-6 leading-relaxed text-foreground/80">
-              I'm Vickie, a professional freelance makeup artist based in Calgary, specializing in
-              bridal and special event glam. With a soft, luminous approach and an eye for detail,
-              I create looks that feel like you — only elevated.
+              Hi, I'm Vickie, a professional makeup artist based in Calgary, Canada. With 8 years
+              of experience, I've had the pleasure of glamming over 2,000 beautiful women and
+              helping them feel confident and beautiful in their own skin.
             </p>
             <p className="mt-4 leading-relaxed text-foreground/80">
-              Every appointment is calm, unhurried and all about you, from the first brushstroke to
-              the final touch-up.
+              I specialize in soft glam, bridal makeup, and flawless, skin-like finishes that
+              enhance your natural beauty without feeling heavy. Whether you're getting ready for
+              your wedding day, a special event, or simply want to feel extra beautiful, I'm here
+              to create a look that feels uniquely you.
+            </p>
+            <p className="mt-4 leading-relaxed text-foreground/80">
+              My goal is to make you feel confident, radiant, and like the best version of
+              yourself every time you sit in my chair.
             </p>
           </div>
         </div>
