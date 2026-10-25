@@ -51,7 +51,10 @@ const MONTHS = [
 ];
 
 const SERVICE_TYPES = ["Bridal Makeup", "Special Event Makeup"];
-const TIMES = ["Morning", "Afternoon", "Evening"];
+const TIME_SLOTS = [
+  "9:00 AM", "10:00 AM", "11:00 AM", "12:00 PM", "1:00 PM",
+  "2:00 PM", "3:00 PM", "4:00 PM", "5:00 PM", "6:00 PM", "7:00 PM",
+];
 
 interface BookingRequest {
   date: string;
@@ -73,7 +76,7 @@ function Booking() {
     email: "",
     phone: "",
     service: "Bridal Makeup",
-    time: "Morning",
+    time: "9:00 AM",
     notes: "",
   });
 
@@ -122,7 +125,7 @@ function Booking() {
       email: "",
       phone: "",
       service: "Bridal Makeup",
-      time: "Morning",
+      time: "9:00 AM",
       notes: "",
     });
   }
@@ -145,7 +148,7 @@ function Booking() {
             <h2 className="text-3xl font-medium tracking-wide">Request received</h2>
             <p className="mt-4 text-sm leading-relaxed text-foreground/80">
               Thank you, {submitted.fullName}. Your <strong>{submitted.service}</strong> request for{" "}
-              <strong>{submitted.date}</strong> ({submitted.time.toLowerCase()}) has been saved.
+              <strong>{submitted.date}</strong> at <strong>{submitted.time}</strong> has been saved.
               A confirmation will arrive at {submitted.email} within 24 hours.
             </p>
             <button type="button" onClick={reset} className="btn-outline mt-8">
@@ -296,25 +299,18 @@ function Booking() {
                       </select>
                     </div>
                     <div>
-                      <span className="field-label">Preferred time</span>
-                      <div className="flex flex-wrap gap-3">
-                        {TIMES.map((t) => (
-                          <label
-                            key={t}
-                            className="flex cursor-pointer items-center gap-2 border border-border px-4 py-2 text-sm transition-colors has-checked:border-crimson has-checked:text-crimson"
-                          >
-                            <input
-                              type="radio"
-                              name="time"
-                              value={t}
-                              checked={form.time === t}
-                              onChange={(e) => setForm({ ...form, time: e.target.value })}
-                              className="accent-crimson"
-                            />
-                            {t}
-                          </label>
+                      <label htmlFor="time" className="field-label">Preferred time</label>
+                      <select
+                        id="time"
+                        name="time"
+                        className="field-input"
+                        value={form.time}
+                        onChange={(e) => setForm({ ...form, time: e.target.value })}
+                      >
+                        {TIME_SLOTS.map((t) => (
+                          <option key={t} value={t}>{t}</option>
                         ))}
-                      </div>
+                      </select>
                     </div>
                     <div>
                       <label htmlFor="notes" className="field-label">Additional notes</label>
