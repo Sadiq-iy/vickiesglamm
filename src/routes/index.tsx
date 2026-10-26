@@ -1,5 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import heroAsset from "@/assets/hero-face.jpg.asset.json";
+import heroAsset from "@/assets/hero-full.jpg.asset.json";
 import aboutAsset from "@/assets/about-vickie.jpg.asset.json";
 import { homeGallery } from "@/lib/gallery-data";
 import { ArrowRight } from "lucide-react";
@@ -73,9 +73,9 @@ function Index() {
           src={heroAsset.url}
           alt="Vickie wearing soft glam makeup with lilac eyeshadow and glossy lips"
           className="absolute inset-0 h-full w-full object-cover"
-          style={{ objectPosition: "50% 30%" }}
+          style={{ objectPosition: "50% 22%" }}
           width={720}
-          height={720}
+          height={1280}
           fetchPriority="high"
         />
         <div className="absolute inset-0 bg-ink/45" />
