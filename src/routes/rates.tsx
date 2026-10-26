@@ -42,7 +42,7 @@ const serviceRates: RateRow[] = [
   {
     title: "Studio Appointment",
     description:
-      "A relaxed glam session in the comfort of the Kincora studio — perfect for portraits, date nights and content days.",
+      "A relaxed glam session in the comfort of the Calgary studio — perfect for portraits, date nights and content days.",
     price: "$100",
   },
   {
@@ -231,7 +231,7 @@ function Rates() {
             </div>
             <p className="mt-10 border-t border-gold/40 pt-6 text-center text-xs leading-relaxed text-muted-foreground">
               Travel, parking, early-morning appointments and additional artists are quoted and
-              communicated before booking. Located in Kincora, Calgary — on-location across the
+              communicated before booking. Located in Calgary, Canada — on-location across the
               city and surrounding areas. Questions? Call or text{" "}
               <a href="tel:+15878372558" className="text-crimson hover:underline">
                 +1 (587) 837-2558
