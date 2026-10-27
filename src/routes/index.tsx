@@ -67,26 +67,44 @@ function SectionHeading({ eyebrow, title }: { eyebrow: string; title: string }) 
 function Index() {
   return (
     <div>
-      {/* Hero */}
-      <section className="relative flex min-h-[80vh] items-center justify-center overflow-hidden">
-        <img
-          src={heroAsset.url}
-          alt="Vickie wearing soft glam makeup with lilac eyeshadow and glossy lips"
-          className="absolute inset-0 h-full w-full object-cover"
-          style={{ objectPosition: "50% 22%" }}
-          width={720}
-          height={1280}
-          fetchPriority="high"
+      {/* Hero — full portrait shown, nothing cropped */}
+      <section className="relative overflow-hidden bg-background">
+        <div
+          aria-hidden
+          className="pointer-events-none absolute -right-32 top-1/4 h-[34rem] w-[34rem] rounded-full bg-blush/35 blur-3xl"
         />
-        <div className="absolute inset-0 bg-ink/45" />
-        <div className="relative z-10 mx-auto max-w-3xl px-6 text-center text-cream">
-          <p className="text-xs uppercase tracking-[0.4em] text-blush">Vickies Glam Makeup Studio</p>
-          <h1 className="mt-6 text-4xl font-medium leading-tight tracking-wide sm:text-5xl md:text-6xl">
-            Effortless Beauty for Every Occasion
-          </h1>
-          <p className="mx-auto mt-6 max-w-xl text-base font-light tracking-wide text-cream/85 sm:text-lg">
-            Bridal, special event, and everyday glam makeup.
-          </p>
+        <div
+          aria-hidden
+          className="pointer-events-none absolute -left-32 bottom-0 h-[26rem] w-[26rem] rounded-full bg-gold/10 blur-3xl"
+        />
+        <div className="relative mx-auto grid max-w-6xl items-center gap-10 px-4 pt-8 pb-12 sm:px-6 sm:py-12 md:min-h-[calc(100vh-5rem)] md:grid-cols-[minmax(0,1fr)_minmax(0,26rem)] md:items-stretch md:gap-16 md:py-12">
+          {/* Portrait — framed print, whole photo visible */}
+          <div className="order-2 mx-auto w-full max-w-[16rem] sm:max-w-xs md:order-2 md:w-full md:max-w-none md:self-stretch">
+            <figure className="h-full border border-gold/40 bg-card p-2 shadow-xl sm:p-3">
+              <img
+                src={heroAsset.url}
+                alt="Vickie in soft glam makeup with a high ponytail, gold pendant necklace and black jacket"
+                className="h-auto w-full object-contain md:h-full md:w-full"
+                width={707}
+                height={1280}
+                fetchPriority="high"
+              />
+            </figure>
+          </div>
+
+          {/* Words */}
+          <div className="order-1 flex flex-col justify-center text-center md:text-left">
+            <span className="gold-rule mx-auto md:mx-0" />
+            <p className="mt-4 text-xs uppercase tracking-[0.4em] text-crimson">
+              Vickies Glam Makeup Studio
+            </p>
+            <h1 className="mt-6 text-4xl font-medium leading-tight tracking-wide text-ink sm:text-5xl md:text-6xl">
+              Effortless Beauty for Every Occasion
+            </h1>
+            <p className="mx-auto mt-6 max-w-xl text-base font-light tracking-wide text-foreground/75 sm:text-lg md:mx-0">
+              Bridal, special event, and everyday glam makeup.
+            </p>
+          </div>
         </div>
       </section>
 
