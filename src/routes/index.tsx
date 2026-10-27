@@ -94,7 +94,7 @@ function Index() {
 
           {/* Words */}
           <div className="order-1 flex flex-col justify-center text-center md:text-left">
-            <span className="gold-rule" />
+            <span className="gold-rule mx-auto md:mx-0" />
             <p className="mt-4 text-xs uppercase tracking-[0.4em] text-crimson">
               Vickies Glam Makeup Studio
             </p>
