@@ -8,7 +8,7 @@ export const Route = createFileRoute("/rates")({
       {
         name: "description",
         content:
-          "The official Vickies Glam rate card — studio appointments $100, on-location $150, bridal makeup $500, wedding party $150, and makeup classes from $750.",
+          "The official Vickies Glam rate card — studio appointments $100, on-location $150, bridal makeup $450, bridal party $150, bridal trial $100, and makeup classes from $750.",
       },
       { property: "og:title", content: "Rates | Vickies Glam Makeup Studio" },
       {
