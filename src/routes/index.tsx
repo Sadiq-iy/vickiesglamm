@@ -39,18 +39,18 @@ const services = [
 const testimonials = [
   {
     quote:
-      "Vickie made me feel like the best version of myself on my wedding day. The makeup lasted from morning photos to the last dance.",
-    name: "Amara — Bridal Client",
+      "Was a wonderful experience. Makeup artist was clean, polite, friendly, she listened to my concerns and made the adjustments that was needed without complaints, made sure I loved and was satisfied with my look. 10/10 recommend",
+    name: "Bonte Emma",
   },
   {
     quote:
-      "Professional, punctual and incredibly talented. Every look she created for my shoot was flawless on camera.",
-    name: "Danielle — Event Client",
+      "10/10!!! My face was EATING 😍🔥 The blend? Smooth. The glow? INSANE. I felt like a whole queen! Thank you for bringing the vision to life 💕",
+    name: "Agema Jennifer",
   },
   {
     quote:
-      "Every event I book her for, I get compliments all night long. Calm, kind and worth every penny.",
-    name: "Priya — Special Event Client",
+      "Vickie is a fantastic makeup artist. She is so professional and literally the queen of soft glam. Knowing that I had oily skin, she prepped my skin adequately, and my makeup lasted throughout the period I needed it. I got so many compliments on my look, and when I cleaned out my makeup, my face had no reactions. She is too good.",
+    name: "okolomike chiemelie",
   },
 ];
 
