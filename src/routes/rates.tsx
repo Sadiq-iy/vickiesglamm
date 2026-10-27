@@ -8,7 +8,7 @@ export const Route = createFileRoute("/rates")({
       {
         name: "description",
         content:
-          "The official Vickies Glam rate card — studio appointments $100, on-location $150, bridal makeup $500, wedding party $150, and makeup classes from $750.",
+          "The official Vickies Glam rate card — studio appointments $100, on-location $150, bridal makeup $450, bridal party $150, bridal trial $100, and makeup classes from $750.",
       },
       { property: "og:title", content: "Rates | Vickies Glam Makeup Studio" },
       {
@@ -54,15 +54,20 @@ const serviceRates: RateRow[] = [
   {
     title: "Bridal Makeup",
     description:
-      "A personalized bridal makeup application designed around your preferred look, wedding style and photography needs. Includes lashes and a long-lasting, flawless finish.",
-    price: "$500",
+      "A complete, luxury makeup service designed to make you look and feel absolutely radiant on your big day.",
+    price: "$450",
   },
   {
-    title: "Wedding Party",
-    description:
-      "Soft, flawless and long-lasting makeup designed to complement the bride and photograph beautifully.",
+    title: "Bridesmaids / Bridal Party",
+    description: "Flawless, natural and camera-ready makeup for your beautiful bridal party.",
     price: "$150",
     per: "per person",
+  },
+  {
+    title: "Bridal Makeup Trial",
+    description:
+      "A chance to perfect your look and ensure you're completely happy before the big day.",
+    price: "$100",
   },
   {
     title: "Makeup Classes",
