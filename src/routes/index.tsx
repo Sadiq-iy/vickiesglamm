@@ -78,20 +78,22 @@ function Index() {
           className="pointer-events-none absolute -left-32 bottom-0 h-[26rem] w-[26rem] rounded-full bg-gold/10 blur-3xl"
         />
         <div className="relative mx-auto grid max-w-6xl items-center gap-10 px-4 py-12 sm:px-6 md:min-h-[calc(100vh-5rem)] md:grid-cols-[minmax(0,1fr)_minmax(0,26rem)] md:items-stretch md:gap-16 md:py-12">
-          {/* Portrait */}
-          <div className="order-1 md:order-2 md:self-stretch">
-            <img
-              src={heroAsset.url}
-              alt="Vickie in soft glam makeup with a high ponytail, gold pendant necklace and black jacket"
-              className="mx-auto w-full max-w-xs object-contain sm:max-w-sm md:h-full md:w-full md:max-w-none"
-              width={720}
-              height={1280}
-              fetchPriority="high"
-            />
+          {/* Portrait — framed print, whole photo visible */}
+          <div className="order-2 mx-auto w-full max-w-[19rem] sm:max-w-xs md:order-2 md:w-full md:max-w-none md:self-stretch">
+            <figure className="h-full border border-gold/40 bg-card p-2 shadow-xl sm:p-3">
+              <img
+                src={heroAsset.url}
+                alt="Vickie in soft glam makeup with a high ponytail, gold pendant necklace and black jacket"
+                className="h-auto w-full object-contain md:h-full md:w-full"
+                width={707}
+                height={1280}
+                fetchPriority="high"
+              />
+            </figure>
           </div>
 
           {/* Words */}
-          <div className="order-2 text-center md:order-1 md:text-left">
+          <div className="order-1 text-center md:text-left">
             <span className="gold-rule" />
             <p className="mt-4 text-xs uppercase tracking-[0.4em] text-crimson">
               Vickies Glam Makeup Studio
