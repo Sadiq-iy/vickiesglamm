@@ -68,7 +68,7 @@ function Index() {
   return (
     <div>
       {/* Hero — photo fills the screen, landscape style */}
-      <section className="relative flex min-h-[86vh] items-center overflow-hidden bg-ink md:min-h-[calc(100vh-5rem)]">
+      <section className="relative flex min-h-[86vh] items-end overflow-hidden bg-ink md:items-center md:min-h-[calc(100vh-5rem)]">
         <img
           src={heroAsset.url}
           alt="Vickie resting her hands beneath her chin, wearing a mesh marble-pattern top"
@@ -85,9 +85,9 @@ function Index() {
         <div aria-hidden className="absolute inset-0 bg-ink/50 md:hidden" />
         <div
           aria-hidden
-          className="absolute inset-x-0 bottom-0 h-48 bg-gradient-to-t from-ink/85 to-transparent md:h-40 md:from-ink/75"
+          className="absolute inset-x-0 bottom-0 h-72 bg-gradient-to-t from-ink/95 via-ink/55 to-transparent md:h-40 md:from-ink/75 md:via-ink/35"
         />
-        <div className="relative mx-auto w-full max-w-6xl px-4 py-20 sm:px-6">
+        <div className="relative mx-auto w-full max-w-6xl px-4 pb-16 pt-24 sm:px-6 md:py-20">
           <div className="max-w-xl text-center md:text-left">
             <span className="gold-rule mx-auto md:mx-0" />
             <p className="mt-4 text-xs uppercase tracking-[0.4em] text-gold">
