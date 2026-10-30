@@ -23,7 +23,7 @@ export const Route = createFileRoute("/contact")({
 });
 
 const details = [
-  { label: "Email", value: "hello@vickiesglam.ca", href: "mailto:hello@vickiesglam.ca" },
+  { label: "Email", value: "vickiesglam6@gmail.com", href: "mailto:vickiesglam6@gmail.com" },
   { label: "Phone", value: "+1 (587) 837-2558 — call or text", href: "tel:+15878372558" },
   { label: "Instagram", value: "@vickiesglam", href: "https://instagram.com/vickiesglam" },
   { label: "Service area", value: "Based in Calgary, Canada — on-location across the city & surrounding areas" },

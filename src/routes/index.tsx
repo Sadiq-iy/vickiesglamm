@@ -1,5 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import heroAsset from "@/assets/hero-full.jpg.asset.json";
+import heroAsset from "@/assets/hero-home.jpg.asset.json";
 import aboutAsset from "@/assets/about-vickie.jpg.asset.json";
 import { homeGallery } from "@/lib/gallery-data";
 import { ArrowRight } from "lucide-react";
@@ -11,12 +11,12 @@ export const Route = createFileRoute("/")({
       {
         name: "description",
         content:
-          "Effortless beauty for every occasion. Bridal, special event and everyday glam makeup by Vickie, a professional freelance makeup artist in Calgary, Alberta.",
+          "Flawless makeup for every occasion. Bridal, events, photo shoots and everyday glam makeup by Vickie, a professional makeup artist in Calgary, Alberta.",
       },
       { property: "og:title", content: "Vickies Glam Makeup Studio" },
       {
         property: "og:description",
-        content: "Effortless beauty for every occasion — bridal, special event and everyday glam makeup.",
+        content: "Flawless makeup for every occasion — bridal, events, photo shoots and everyday glam.",
       },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
@@ -67,42 +67,37 @@ function SectionHeading({ eyebrow, title }: { eyebrow: string; title: string }) 
 function Index() {
   return (
     <div>
-      {/* Hero — full portrait shown, nothing cropped */}
-      <section className="relative overflow-hidden bg-background">
-        <div
-          aria-hidden
-          className="pointer-events-none absolute -right-32 top-1/4 h-[34rem] w-[34rem] rounded-full bg-blush/35 blur-3xl"
+      {/* Hero — photo fills the screen, landscape style */}
+      <section className="relative flex min-h-[86vh] items-end overflow-hidden bg-ink md:items-center md:min-h-[calc(100vh-5rem)]">
+        <img
+          src={heroAsset.url}
+          alt="Vickie resting her hands beneath her chin, wearing a mesh marble-pattern top"
+          className="absolute inset-0 h-full w-full object-cover"
+          style={{ objectPosition: "50% 20%" }}
+          width={1320}
+          height={1630}
+          fetchPriority="high"
         />
         <div
           aria-hidden
-          className="pointer-events-none absolute -left-32 bottom-0 h-[26rem] w-[26rem] rounded-full bg-gold/10 blur-3xl"
+          className="absolute inset-0 bg-gradient-to-r from-ink/90 via-ink/55 to-ink/10"
         />
-        <div className="relative mx-auto grid max-w-6xl items-center gap-10 px-4 pt-8 pb-12 sm:px-6 sm:py-12 md:min-h-[calc(100vh-5rem)] md:grid-cols-[minmax(0,1fr)_minmax(0,26rem)] md:items-stretch md:gap-16 md:py-12">
-          {/* Portrait — framed print, whole photo visible */}
-          <div className="order-2 mx-auto w-full max-w-[16rem] sm:max-w-xs md:order-2 md:w-full md:max-w-none md:self-stretch">
-            <figure className="h-full border border-gold/40 bg-card p-2 shadow-xl sm:p-3">
-              <img
-                src={heroAsset.url}
-                alt="Vickie in soft glam makeup with a high ponytail, gold pendant necklace and black jacket"
-                className="h-auto w-full object-contain md:h-full md:w-full"
-                width={707}
-                height={1280}
-                fetchPriority="high"
-              />
-            </figure>
-          </div>
-
-          {/* Words */}
-          <div className="order-1 flex flex-col justify-center text-center md:text-left">
+        <div aria-hidden className="absolute inset-0 bg-ink/50 md:hidden" />
+        <div
+          aria-hidden
+          className="absolute inset-x-0 bottom-0 h-72 bg-gradient-to-t from-ink/95 via-ink/55 to-transparent md:h-40 md:from-ink/75 md:via-ink/35"
+        />
+        <div className="relative mx-auto w-full max-w-6xl px-4 pb-16 pt-24 sm:px-6 md:py-20">
+          <div className="max-w-xl text-center md:text-left">
             <span className="gold-rule mx-auto md:mx-0" />
-            <p className="mt-4 text-xs uppercase tracking-[0.4em] text-crimson">
+            <p className="mt-4 text-xs uppercase tracking-[0.4em] text-gold">
               Vickies Glam Makeup Studio
             </p>
-            <h1 className="mt-6 text-4xl font-medium leading-tight tracking-wide text-ink sm:text-5xl md:text-6xl">
-              Effortless Beauty for Every Occasion
+            <h1 className="mt-6 text-4xl font-medium leading-tight tracking-wide text-cream sm:text-5xl md:text-6xl">
+              Flawless makeup for every occasion.
             </h1>
-            <p className="mx-auto mt-6 max-w-xl text-base font-light tracking-wide text-foreground/75 sm:text-lg md:mx-0">
-              Bridal, special event, and everyday glam makeup.
+            <p className="mx-auto mt-6 max-w-lg text-base font-light tracking-wide text-cream/85 sm:text-lg md:mx-0">
+              Bridal. Events. Photo shoots and everyday glam.
             </p>
           </div>
         </div>
@@ -129,7 +124,7 @@ function Index() {
               helping them feel confident and beautiful in their own skin.
             </p>
             <p className="mt-4 leading-relaxed text-foreground/80">
-              I specialize in soft glam, bridal makeup, and flawless, skin-like finishes that
+              I specialize in soft glam, bridal makeup with flawless, skin-like finishes that
               enhance your natural beauty without feeling heavy. Whether you're getting ready for
               your wedding day, a special event, or simply want to feel extra beautiful, I'm here
               to create a look that feels uniquely you.
@@ -193,7 +188,7 @@ function Index() {
       {/* Testimonials */}
       <section className="py-20 sm:py-24">
         <div className="mx-auto max-w-5xl px-4 sm:px-6">
-          <SectionHeading eyebrow="Kind words" title="What clients say" />
+          <SectionHeading eyebrow="Reviews" title="What clients say" />
           <div className="mt-14 grid gap-6 md:grid-cols-3">
             {testimonials.map((t) => (
               <figure key={t.name} className="border-t border-gold/60 pt-6">

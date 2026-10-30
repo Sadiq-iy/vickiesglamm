@@ -13,8 +13,8 @@ export function SiteFooter() {
           </div>
           <div className="text-sm">
             <p className="text-xs uppercase tracking-[0.2em] text-gold">Get in touch</p>
-            <a href="mailto:hello@vickiesglam.ca" className="mt-3 block text-cream/80 hover:text-gold">
-              hello@vickiesglam.ca
+            <a href="mailto:vickiesglam6@gmail.com" className="mt-3 block text-cream/80 hover:text-gold">
+              vickiesglam6@gmail.com
             </a>
             <a href="tel:+15878372558" className="mt-2 block text-cream/80 hover:text-gold">
               +1 (587) 837-2558
