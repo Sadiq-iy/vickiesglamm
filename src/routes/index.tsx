@@ -82,9 +82,10 @@ function Index() {
           aria-hidden
           className="absolute inset-0 bg-gradient-to-r from-ink/90 via-ink/55 to-ink/10"
         />
+        <div aria-hidden className="absolute inset-0 bg-ink/50 md:hidden" />
         <div
           aria-hidden
-          className="absolute inset-x-0 bottom-0 h-40 bg-gradient-to-t from-ink/75 to-transparent"
+          className="absolute inset-x-0 bottom-0 h-48 bg-gradient-to-t from-ink/85 to-transparent md:h-40 md:from-ink/75"
         />
         <div className="relative mx-auto w-full max-w-6xl px-4 py-20 sm:px-6">
           <div className="max-w-xl text-center md:text-left">
