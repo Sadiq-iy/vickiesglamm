@@ -1,6 +1,9 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
+import { ServiceCategories } from "@/components/service-categories";
+import { bridalRates, eventRates, trainingRates, parseCategory, type ServiceRate } from "@/lib/service-rates";
 
 export const Route = createFileRoute("/services")({
+  validateSearch: (search: Record<string, unknown>) => ({ category: parseCategory(search.category) }),
   head: () => ({
     meta: [
       { title: "Services | Vickies Glam Makeup Studio" },
@@ -21,38 +24,36 @@ export const Route = createFileRoute("/services")({
   component: Services,
 });
 
-interface PriceLine {
-  label: string;
-  price: string;
-  per?: string;
-  note?: string;
+function ServiceGroup({ title, rows, detail }: { title: string; rows: ServiceRate[]; detail?: string }) {
+  return (
+    <section className="border-t border-gold py-6">
+      <h2 className="text-3xl font-medium">{title}</h2>
+      <div className="mt-6 divide-y divide-border">
+        {rows.map((rate) => (
+          <article key={rate.title} className="grid gap-4 py-6 sm:grid-cols-[minmax(0,1fr)_auto]">
+            <div className="min-w-0">
+              <h3 className="text-2xl font-medium">{rate.title}</h3>
+              <p className="mt-2 max-w-xl text-sm leading-relaxed text-foreground/80">{rate.description}</p>
+              {rate.note && <p className="mt-2 text-sm text-muted-foreground">{rate.note}</p>}
+            </div>
+            <div className="sm:text-right">
+              <p className="text-3xl font-medium text-crimson">{rate.price}</p>
+              {rate.per && <p className="mt-2 text-sm text-muted-foreground">{rate.per}</p>}
+            </div>
+          </article>
+        ))}
+      </div>
+      <div className="mt-6 flex flex-wrap items-center justify-between gap-4">
+        {detail && <p className="max-w-lg text-sm text-muted-foreground">{detail}</p>}
+        <Link to="/booking" className="btn-gold">Book me now</Link>
+      </div>
+    </section>
+  );
 }
 
-const packages: { title: string; description: string; prices: PriceLine[]; detail: string }[] = [
-  {
-    title: "Bridal Makeup",
-    description:
-      "A complete, luxury makeup service designed to make you look and feel absolutely radiant on your big day.",
-    prices: [
-      { label: "Bridal Makeup", price: "$450" },
-      { label: "Bridesmaids / Bridal Party", price: "$150", per: "per person" },
-      { label: "Bridal Makeup Trial", price: "$100" },
-    ],
-    detail: "A 50% deposit secures your wedding date and is applied toward your total balance.",
-  },
-  {
-    title: "Special Event Makeup",
-    description:
-      "Polished, camera-ready glam for galas, birthdays, graduations, engagements and nights out. Every look is tailored to your outfit, the lighting and the occasion.",
-    prices: [
-      { label: "Studio Appointment", price: "$100" },
-      { label: "On-Location Appointment", price: "$150", note: "Additional charges depend on location" },
-    ],
-    detail: "A $30 booking fee per person confirms your appointment.",
-  },
-];
-
 function Services() {
+  const { category } = Route.useSearch();
+  const navigate = Route.useNavigate();
   return (
     <div className="py-16 sm:py-20">
       <div className="mx-auto max-w-4xl px-4 sm:px-6">
@@ -60,46 +61,17 @@ function Services() {
           <span className="gold-rule" />
           <p className="mt-4 text-xs uppercase tracking-[0.3em] text-muted-foreground">Services</p>
           <h1 className="mt-3 text-4xl font-medium tracking-wide sm:text-5xl">Packages</h1>
-          <p className="mx-auto mt-4 max-w-xl text-sm leading-relaxed text-muted-foreground">
-            Clear, upfront rates — every look is built around your date, your style and your vision.
-          </p>
+          <p className="mx-auto mt-4 max-w-xl text-sm leading-relaxed text-muted-foreground">Clear, upfront rates — every look is built around your date, your style and your vision.</p>
         </div>
-
-        <div className="mt-14 space-y-6">
-          {packages.map((pkg) => (
-            <article
-              key={pkg.title}
-              className="border border-border bg-card p-8 transition-colors hover:border-gold sm:p-10"
-            >
-              <h2 className="text-2xl font-medium tracking-wide sm:text-3xl">{pkg.title}</h2>
-              <p className="mt-4 text-sm leading-relaxed text-foreground/80">{pkg.description}</p>
-              <ul className="mt-6 divide-y divide-border border-y border-border">
-                {pkg.prices.map((p) => (
-                  <li key={p.label} className="flex items-baseline justify-between gap-4 py-3">
-                    <div className="min-w-0">
-                      <p className="font-medium tracking-wide">{p.label}</p>
-                      {p.note && (
-                        <p className="mt-0.5 text-xs uppercase tracking-[0.14em] text-muted-foreground">{p.note}</p>
-                      )}
-                    </div>
-                    <p className="shrink-0 text-right">
-                      <span className="text-2xl font-medium text-crimson">{p.price}</span>
-                      {p.per && (
-                        <span className="ml-2 text-xs uppercase tracking-[0.16em] text-muted-foreground">{p.per}</span>
-                      )}
-                    </p>
-                  </li>
-                ))}
-              </ul>
-              <div className="mt-6 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-                <p className="text-xs uppercase tracking-[0.18em] text-muted-foreground">{pkg.detail}</p>
-                <Link to="/booking" className="btn-gold shrink-0 self-start sm:self-center">
-                  Book me now
-                </Link>
-              </div>
-            </article>
-          ))}
-        </div>
+        <ServiceCategories
+          category={category}
+          onChange={(next) => void navigate({ search: { category: next }, replace: true, resetScroll: false })}
+          bridal={<ServiceGroup title="Bridal Makeup" rows={bridalRates} detail="A 50% deposit secures your wedding date and is applied toward your total balance." />}
+          events={<>
+            <ServiceGroup title="Special Event Makeup" rows={eventRates} detail="A $30 booking fee per person confirms your appointment." />
+            <ServiceGroup title="Trainings" rows={trainingRates} />
+          </>}
+        />
       </div>
     </div>
   );
