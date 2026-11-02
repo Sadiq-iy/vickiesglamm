@@ -1,6 +1,6 @@
 # Roadmap
 
-- [ ] Separate Bridal and Special Events selections on Services and Rates; update three training offers and static PDF; replace About photo below writeup; verify selections and layout.
+- [x] Separate Bridal and Special Events selections on Services and Rates; update three training offers and static PDF; replace About photo below writeup; verify selections and layout.
 
 - [x] Home, Portfolio, Services, Booking, Contact pages (brand brief)
 - [x] Rates page from uploaded rate cards (brand colours; bridal form excluded)
