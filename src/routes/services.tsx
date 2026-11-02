@@ -3,7 +3,7 @@ import { ServiceCategories } from "@/components/service-categories";
 import { bridalRates, eventRates, trainingRates, parseCategory, type ServiceRate } from "@/lib/service-rates";
 
 export const Route = createFileRoute("/services")({
-  validateSearch: (search: Record<string, unknown>) => ({ category: parseCategory(search.category) }),
+  validateSearch: (search: Record<string, unknown>): { category?: "bridal" | "special-events" } => ({ category: parseCategory(search['category']) }),
   head: () => ({
     meta: [
       { title: "Services | Vickies Glam Makeup Studio" },
@@ -52,7 +52,8 @@ function ServiceGroup({ title, rows, detail }: { title: string; rows: ServiceRat
 }
 
 function Services() {
-  const { category } = Route.useSearch();
+  const { category: selectedCategory } = Route.useSearch();
+  const category = parseCategory(selectedCategory);
   const navigate = Route.useNavigate();
   return (
     <div className="py-16 sm:py-20">

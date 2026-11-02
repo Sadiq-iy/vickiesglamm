@@ -4,7 +4,7 @@ import { ServiceCategories } from "@/components/service-categories";
 import { bridalRates, eventRates, trainingRates, parseCategory, type ServiceRate as RateRow } from "@/lib/service-rates";
 
 export const Route = createFileRoute("/rates")({
-  validateSearch: (search: Record<string, unknown>) => ({ category: parseCategory(search.category) }),
+  validateSearch: (search: Record<string, unknown>): { category?: "bridal" | "special-events" } => ({ category: parseCategory(search['category']) }),
   head: () => ({
     meta: [
       { title: "Rates | Vickies Glam Makeup Studio" },
@@ -105,7 +105,8 @@ function PolicyColumn({ heading, items }: { heading: string; items: string[] }) 
 }
 
 function Rates() {
-  const { category } = Route.useSearch();
+  const { category: selectedCategory } = Route.useSearch();
+  const category = parseCategory(selectedCategory);
   const navigate = Route.useNavigate();
   return (
     <div className="py-16 sm:py-20">

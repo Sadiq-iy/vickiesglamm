@@ -23,7 +23,7 @@ export const trainingRates = [
   { title: "Personal Makeup Training", description: "Learn to do your own makeup confidently, from everyday natural looks to soft glam.", price: "$500 CAD", amount: 500, days: 5, oneOnOne: true, per: "5 days · One-on-one" },
   { title: "Professional Makeup Artistry Training", description: "For beginners who want to become professional makeup artists and learn to work on clients.", price: "$1,500 CAD", amount: 1500, days: 10, oneOnOne: true, per: "10 days · One-on-one" },
   { title: "Professional Upgrade Training", description: "For existing makeup artists who want to refine their techniques and improve their results.", price: "$650 CAD", amount: 650, days: 3, oneOnOne: true, per: "3 days · One-on-one" },
-] satisfies ServiceRate[];
+] satisfies (ServiceRate & { amount: number; days: number; oneOnOne: boolean })[];
 
 export function ratesForCategory(category: ServiceCategory): ServiceRate[] {
   return category === "bridal" ? bridalRates : [...eventRates, ...trainingRates];
