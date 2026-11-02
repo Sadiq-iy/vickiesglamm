@@ -1,5 +1,7 @@
 # Roadmap
 
+- [x] Separate Bridal and Special Events selections on Services and Rates; update three training offers and static PDF; replace About photo below writeup; verify selections and layout.
+
 - [x] Home, Portfolio, Services, Booking, Contact pages (brand brief)
 - [x] Rates page from uploaded rate cards (brand colours; bridal form excluded)
 - [x] Applied client update list: new About text + about photo, new rates ("My Services": Studio $100, On-Location $150, Bridal $500, Wedding Party $150 pp, Makeup Classes $2,000/$750), hero photo (face only), hero Book Me button removed, rate card PDF download button

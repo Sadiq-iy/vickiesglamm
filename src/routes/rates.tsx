@@ -1,14 +1,17 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { Download } from "lucide-react";
+import { ServiceCategories } from "@/components/service-categories";
+import { bridalRates, eventRates, trainingRates, parseCategory, type ServiceRate as RateRow } from "@/lib/service-rates";
 
 export const Route = createFileRoute("/rates")({
+  validateSearch: (search: Record<string, unknown>): { category?: "bridal" | "special-events" } => ({ category: parseCategory(search['category']) }),
   head: () => ({
     meta: [
       { title: "Rates | Vickies Glam Makeup Studio" },
       {
         name: "description",
         content:
-          "The official Vickies Glam rate card — studio appointments $100, on-location $150, bridal makeup $450, bridal party $150, bridal trial $100, and makeup classes from $750.",
+          "The official Vickies Glam rate card — studio appointments $100, on-location $150, bridal makeup $450, bridal party $150, bridal trial $100, and one-on-one trainings from $500 CAD.",
       },
       { property: "og:title", content: "Rates | Vickies Glam Makeup Studio" },
       {
@@ -21,72 +24,6 @@ export const Route = createFileRoute("/rates")({
   }),
   component: Rates,
 });
-
-interface SubRate {
-  label: string;
-  description?: string;
-  price: string;
-  per?: string;
-}
-
-interface RateRow {
-  title: string;
-  description: string;
-  price?: string;
-  per?: string;
-  note?: string;
-  subRows?: SubRate[];
-}
-
-const serviceRates: RateRow[] = [
-  {
-    title: "Studio Appointment",
-    description:
-      "A relaxed glam session in the comfort of the Calgary studio — perfect for portraits, date nights and content days.",
-    price: "$100",
-  },
-  {
-    title: "On-Location Appointment",
-    description: "Full glam brought to you, wherever the occasion takes place.",
-    price: "$150",
-    note: "Additional charges depend on location",
-  },
-  {
-    title: "Bridal Makeup",
-    description:
-      "A complete, luxury makeup service designed to make you look and feel absolutely radiant on your big day.",
-    price: "$450",
-  },
-  {
-    title: "Bridesmaids / Bridal Party",
-    description: "Flawless, natural and camera-ready makeup for your beautiful bridal party.",
-    price: "$150",
-    per: "per person",
-  },
-  {
-    title: "Bridal Makeup Trial",
-    description:
-      "A chance to perfect your look and ensure you're completely happy before the big day.",
-    price: "$100",
-  },
-  {
-    title: "Makeup Classes",
-    description: "Hands-on training designed around your goals.",
-    subRows: [
-      {
-        label: "Professional Training",
-        description: "Intensive, hands-on training for aspiring makeup artists.",
-        price: "$2,000",
-        per: "3 weeks",
-      },
-      {
-        label: "Personal Training",
-        description: "Learn to do your makeup yourself.",
-        price: "$750",
-      },
-    ],
-  },
-];
 
 const bridalPolicy = [
   "A 50% non-refundable deposit secures your wedding date and is applied toward your total balance.",
@@ -129,26 +66,7 @@ function RateCard({ title, eyebrow, rows, band }: { title: string; eyebrow: stri
                   {row.note}
                 </p>
               )}
-              {row.subRows && (
-                <div className="mt-4 space-y-4 border-l border-gold/60 pl-4">
-                  {row.subRows.map((sub) => (
-                    <div key={sub.label} className="grid gap-2 sm:grid-cols-[minmax(0,1fr)_auto] sm:items-baseline sm:gap-6">
-                      <div>
-                        <p className="font-medium tracking-wide">{sub.label}</p>
-                        {sub.description && (
-                          <p className="mt-1 text-sm leading-relaxed text-foreground/80">{sub.description}</p>
-                        )}
-                      </div>
-                      <div className="sm:text-right">
-                        <p className="text-2xl font-medium tracking-wide text-crimson">{sub.price}</p>
-                        {sub.per && (
-                          <p className="text-xs uppercase tracking-[0.2em] text-muted-foreground">{sub.per}</p>
-                        )}
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              )}
+
             </div>
             {row.price && (
               <div className="text-left md:text-right">
@@ -187,6 +105,9 @@ function PolicyColumn({ heading, items }: { heading: string; items: string[] }) 
 }
 
 function Rates() {
+  const { category: selectedCategory } = Route.useSearch();
+  const category = parseCategory(selectedCategory);
+  const navigate = Route.useNavigate();
   return (
     <div className="py-16 sm:py-20">
       <div className="mx-auto max-w-4xl px-4 sm:px-6">
@@ -201,11 +122,14 @@ function Rates() {
         </div>
 
         <div className="mt-14 space-y-8">
-          <RateCard
-            eyebrow="Services"
-            title="My Services"
-            rows={serviceRates}
-            band="A 50% deposit secures wedding dates · payment by e-transfer · payment details are provided once your appointment is confirmed."
+          <ServiceCategories
+            category={category}
+            onChange={(next) => void navigate({ search: { category: next }, replace: true, resetScroll: false })}
+            bridal={<RateCard eyebrow="Bridal" title="Bridal Services" rows={bridalRates} band="A 50% deposit secures your wedding date and is applied toward your total balance." />}
+            events={<>
+              <RateCard eyebrow="Special Events" title="Event Services" rows={eventRates} band="A $30 booking fee per person confirms your appointment." />
+              <RateCard eyebrow="One-on-one" title="Trainings" rows={trainingRates} />
+            </>}
           />
 
           {/* PDF download */}
@@ -230,9 +154,10 @@ function Rates() {
                 Important details for a smooth, stress-free experience.
               </p>
             </div>
-            <div className="mt-10 grid gap-12 md:grid-cols-2">
-              <PolicyColumn heading="Bridal bookings" items={bridalPolicy} />
-              <PolicyColumn heading="Studio & event bookings" items={eventPolicy} />
+            <div className="mt-10">
+              {category === "bridal"
+                ? <PolicyColumn heading="Bridal bookings" items={bridalPolicy} />
+                : <PolicyColumn heading="Studio & event bookings" items={eventPolicy} />}
             </div>
             <p className="mt-10 border-t border-gold/40 pt-6 text-center text-xs leading-relaxed text-muted-foreground">
               Travel, parking, early-morning appointments and additional artists are quoted and

@@ -1,6 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import heroAsset from "@/assets/hero-home.jpg.asset.json";
-import aboutAsset from "@/assets/about-vickie.jpg.asset.json";
+import aboutAsset from "@/assets/about-vickie-studio.png.asset.json";
 import { homeGallery } from "@/lib/gallery-data";
 import { ArrowRight } from "lucide-react";
 
@@ -105,15 +105,7 @@ function Index() {
 
       {/* About preview */}
       <section className="bg-secondary/40 py-20 sm:py-24">
-        <div className="mx-auto grid max-w-5xl items-center gap-12 px-4 sm:px-6 md:grid-cols-[minmax(0,2fr)_minmax(0,3fr)]">
-          <img
-            src={aboutAsset.url}
-            alt="Vickie wearing a warm-toned glam makeup look"
-            className="mx-auto w-full max-w-sm object-cover shadow-lg md:max-w-none"
-            width={780}
-            height={970}
-            loading="lazy"
-          />
+        <div className="mx-auto flex max-w-3xl flex-col gap-10 px-4 sm:px-6">
           <div>
             <span className="gold-rule" />
             <p className="mt-4 text-xs uppercase tracking-[0.3em] text-muted-foreground">About the artist</p>
@@ -134,6 +126,14 @@ function Index() {
               yourself every time you sit in my chair.
             </p>
           </div>
+          <img
+            src={aboutAsset.url}
+            alt="Vickie in her makeup studio, wearing a Makeup Artist shirt"
+            className="mx-auto h-auto w-full max-w-xl shadow-lg"
+            width={768}
+            height={922}
+            loading="lazy"
+          />
         </div>
       </section>
 
@@ -146,6 +146,7 @@ function Index() {
               <Link
                 key={s.title}
                 to="/services"
+                search={{ category: s.title === "Bridal Makeup" ? "bridal" : "special-events" }}
                 className="group border border-border bg-card p-8 text-center transition-colors hover:border-gold"
               >
                 <h3 className="text-2xl font-medium tracking-wide">{s.title}</h3>
