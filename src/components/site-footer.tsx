@@ -17,7 +17,7 @@ export function SiteFooter() {
               vickiesglam6@gmail.com
             </a>
             <a href="tel:+15878372558" className="mt-2 block text-cream/80 hover:text-gold">
-              +1 (587) 837-2558
+              +1 (587) 837-2558 — Call, Text or WhatsApp
             </a>
             <a
               href="https://instagram.com/vickiesglam"
@@ -32,8 +32,9 @@ export function SiteFooter() {
             <p className="text-xs uppercase tracking-[0.2em] text-gold">Explore</p>
             <div className="mt-3 flex flex-col gap-2 md:items-end">
               <Link to="/portfolio" className="text-cream/80 hover:text-gold">Portfolio</Link>
-              <Link to="/services" className="text-cream/80 hover:text-gold">Services</Link>
+              <Link to="/services" className="text-cream/80 hover:text-gold">Packages</Link>
               <Link to="/booking" className="text-cream/80 hover:text-gold">Book me now</Link>
+              <Link to="/booking" hash="policies" className="text-cream/80 hover:text-gold">Booking Policies</Link>
             </div>
           </div>
         </div>
