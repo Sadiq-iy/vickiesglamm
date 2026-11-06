@@ -1,21 +1,21 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { ServiceCategories } from "@/components/service-categories";
-import { bridalRates, eventRates, trainingRates, parseCategory, type ServiceRate } from "@/lib/service-rates";
+import { bridalRates, regularRates, trainingRates, parseCategory, type ServiceRate } from "@/lib/service-rates";
 
 export const Route = createFileRoute("/services")({
-  validateSearch: (search: Record<string, unknown>): { category?: "bridal" | "special-events" } => ({ category: parseCategory(search['category']) }),
+  validateSearch: (search: Record<string, unknown>): { category?: "bridal" | "regular" | "trainings" } => ({ category: parseCategory(search['category']) }),
   head: () => ({
     meta: [
-      { title: "Services | Vickies Glam Makeup Studio" },
+      { title: "Packages | Vickies Glam Makeup Studio" },
       {
         name: "description",
         content:
-          "Bridal makeup $450, bridal party $150 per person, bridal trial $100, studio appointments $100 and on-location $150 — Vickies Glam Makeup Studio, Calgary.",
+          "Bridal makeup $500, bridal party $150 per person, bridal trial $150, studio appointments $120 and on-location $150 — Vickies Glam Makeup Studio, Calgary.",
       },
-      { property: "og:title", content: "Services | Vickies Glam Makeup Studio" },
+      { property: "og:title", content: "Packages | Vickies Glam Makeup Studio" },
       {
         property: "og:description",
-        content: "Bridal and special event makeup packages with clear, upfront rates.",
+        content: "Bridal and regular makeup packages with clear, upfront rates.",
       },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
@@ -60,18 +60,16 @@ function Services() {
       <div className="mx-auto max-w-4xl px-4 sm:px-6">
         <div className="text-center">
           <span className="gold-rule" />
-          <p className="mt-4 text-xs uppercase tracking-[0.3em] text-muted-foreground">Services</p>
-          <h1 className="mt-3 text-4xl font-medium tracking-wide sm:text-5xl">Packages</h1>
+          <p className="mt-4 text-xs uppercase tracking-[0.3em] text-muted-foreground">Packages</p>
+          <h1 className="mt-3 text-4xl font-medium tracking-wide sm:text-5xl">Our Packages</h1>
           <p className="mx-auto mt-4 max-w-xl text-sm leading-relaxed text-muted-foreground">Clear, upfront rates — every look is built around your date, your style and your vision.</p>
         </div>
         <ServiceCategories
           category={category}
           onChange={(next) => void navigate({ search: { category: next }, replace: true, resetScroll: false })}
           bridal={<ServiceGroup title="Bridal Makeup" rows={bridalRates} detail="A 50% deposit secures your wedding date and is applied toward your total balance." />}
-          events={<>
-            <ServiceGroup title="Special Event Makeup" rows={eventRates} detail="A $30 booking fee per person confirms your appointment." />
-            <ServiceGroup title="Trainings" rows={trainingRates} />
-          </>}
+          regular={<ServiceGroup title="Regular Makeup" rows={regularRates} detail="A booking deposit of $50 is required to secure your appointment." />}
+          trainings={<ServiceGroup title="Trainings" rows={trainingRates} />}
         />
       </div>
     </div>

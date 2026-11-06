@@ -5,7 +5,7 @@ import logo from "@/assets/logo.png";
 const links = [
   { to: "/", label: "Home" },
   { to: "/portfolio", label: "Portfolio" },
-  { to: "/services", label: "Services" },
+  { to: "/services", label: "Packages" },
   { to: "/rates", label: "Rates" },
   { to: "/booking", label: "Booking" },
   { to: "/contact", label: "Contact" },

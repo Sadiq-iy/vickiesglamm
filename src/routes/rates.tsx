@@ -1,22 +1,22 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { Download } from "lucide-react";
 import { ServiceCategories } from "@/components/service-categories";
-import { bridalRates, eventRates, trainingRates, parseCategory, type ServiceRate as RateRow } from "@/lib/service-rates";
+import { bridalRates, regularRates, trainingRates, parseCategory, type ServiceRate as RateRow } from "@/lib/service-rates";
 
 export const Route = createFileRoute("/rates")({
-  validateSearch: (search: Record<string, unknown>): { category?: "bridal" | "special-events" } => ({ category: parseCategory(search['category']) }),
+  validateSearch: (search: Record<string, unknown>): { category?: "bridal" | "regular" | "trainings" } => ({ category: parseCategory(search['category']) }),
   head: () => ({
     meta: [
       { title: "Rates | Vickies Glam Makeup Studio" },
       {
         name: "description",
         content:
-          "The official Vickies Glam rate card — studio appointments $100, on-location $150, bridal makeup $450, bridal party $150, bridal trial $100, and one-on-one trainings from $500 CAD.",
+          "The official Vickies Glam rate card — studio appointments $120, on-location $150, bridal makeup $500, bridal party $150, bridal trial $150, and one-on-one trainings from $500 CAD.",
       },
       { property: "og:title", content: "Rates | Vickies Glam Makeup Studio" },
       {
         property: "og:description",
-        content: "Bridal, event and makeup class rates and booking policies by Vickies Glam.",
+        content: "Bridal, regular makeup and makeup class rates and booking policies by Vickies Glam.",
       },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
@@ -34,13 +34,13 @@ const bridalPolicy = [
   "Bridal parties: minimum 5, maximum 10 guests including the bride; larger parties are quoted with additional time.",
 ];
 
-const eventPolicy = [
-  "A $30 booking fee per person confirms your appointment; the remaining balance is due on the day.",
-  "Please provide at least 48 hours' notice for cancellations or rescheduling.",
-  "With sufficient notice, the booking fee may transfer to a new appointment, subject to availability.",
-  "Cancellations with less than 48 hours' notice forfeit the booking fee.",
-  "Running late may shorten your appointment — the full fee still applies.",
-  "If Vickiesglam cancels, your booking fee is refunded or transferred.",
+const regularPolicy = [
+  "A booking deposit of $50 is required to secure your appointment. Your appointment is not confirmed until the deposit is received.",
+  "Please reschedule at least 48 hours before your appointment.",
+  "Deposits are non-refundable if cancelled within 48 hours of the appointment.",
+  "Please arrive on time — 15+ minutes late may result in a shortened service or cancellation.",
+  "No-shows forfeit the deposit.",
+  "If Vickiesglam cancels, your deposit is refunded or transferred.",
 ];
 
 function RateCard({ title, eyebrow, rows, band }: { title: string; eyebrow: string; rows: RateRow[]; band?: string }) {
@@ -116,7 +116,7 @@ function Rates() {
           <p className="mt-4 text-xs uppercase tracking-[0.3em] text-muted-foreground">Rate card</p>
           <h1 className="mt-3 text-4xl font-medium tracking-wide sm:text-5xl">The investment</h1>
           <p className="mx-auto mt-4 max-w-xl text-sm leading-relaxed text-muted-foreground">
-            Soft glam. Flawless finish. Every service below is built around you — with clear,
+            Soft glam. Flawless finish. Every package below is built around you — with clear,
             honest rates and no surprises.
           </p>
         </div>
@@ -125,11 +125,9 @@ function Rates() {
           <ServiceCategories
             category={category}
             onChange={(next) => void navigate({ search: { category: next }, replace: true, resetScroll: false })}
-            bridal={<RateCard eyebrow="Bridal" title="Bridal Services" rows={bridalRates} band="A 50% deposit secures your wedding date and is applied toward your total balance." />}
-            events={<>
-              <RateCard eyebrow="Special Events" title="Event Services" rows={eventRates} band="A $30 booking fee per person confirms your appointment." />
-              <RateCard eyebrow="One-on-one" title="Trainings" rows={trainingRates} />
-            </>}
+            bridal={<RateCard eyebrow="Bridal" title="Bridal Makeup" rows={bridalRates} band="A 50% deposit secures your wedding date and is applied toward your total balance." />}
+            regular={<RateCard eyebrow="Regular Makeup" title="Regular Makeup" rows={regularRates} band="A booking deposit of $50 is required to secure your appointment." />}
+            trainings={<RateCard eyebrow="One-on-one" title="Trainings" rows={trainingRates} />}
           />
 
           {/* PDF download */}
@@ -157,12 +155,12 @@ function Rates() {
             <div className="mt-10">
               {category === "bridal"
                 ? <PolicyColumn heading="Bridal bookings" items={bridalPolicy} />
-                : <PolicyColumn heading="Studio & event bookings" items={eventPolicy} />}
+                : <PolicyColumn heading="Studio & appointment bookings" items={regularPolicy} />}
             </div>
             <p className="mt-10 border-t border-gold/40 pt-6 text-center text-xs leading-relaxed text-muted-foreground">
               Travel, parking, early-morning appointments and additional artists are quoted and
               communicated before booking. Located in Calgary, Canada — on-location across the
-              city and surrounding areas. Questions? Call or text{" "}
+              city and surrounding areas. Questions? Call, text or WhatsApp{" "}
               <a href="tel:+15878372558" className="text-crimson hover:underline">
                 +1 (587) 837-2558
               </a>

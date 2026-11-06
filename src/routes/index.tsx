@@ -1,7 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import heroAsset from "@/assets/hero-home.jpg.asset.json";
 import aboutAsset from "@/assets/about-vickie-studio.png.asset.json";
-import { homeGallery } from "@/lib/gallery-data";
+import { homeGallery, portfolioDriveUrl } from "@/lib/gallery-data";
 import { ArrowRight } from "lucide-react";
 
 export const Route = createFileRoute("/")({
@@ -24,17 +24,6 @@ export const Route = createFileRoute("/")({
   }),
   component: Index,
 });
-
-const services = [
-  {
-    title: "Bridal Makeup",
-    blurb: "Timeless, camera-ready glam for your wedding day — soft, romantic, or full classic bridal.",
-  },
-  {
-    title: "Special Event Makeup",
-    blurb: "Polished looks for galas, parties and nights out, tailored to your outfit and the occasion.",
-  },
-];
 
 const testimonials = [
   {
@@ -137,26 +126,31 @@ function Index() {
         </div>
       </section>
 
-      {/* Services preview */}
+      {/* Packages preview */}
       <section className="py-20 sm:py-24">
         <div className="mx-auto max-w-5xl px-4 sm:px-6">
-          <SectionHeading eyebrow="Services" title="How I can glam you" />
-          <div className="mx-auto mt-14 grid max-w-3xl gap-6 sm:grid-cols-2">
-            {services.map((s) => (
+          <SectionHeading eyebrow="Packages" title="How I can glam you" />
+          <div className="mx-auto mt-14 max-w-3xl">
+            <div className="group border border-border bg-card p-10 text-center transition-colors hover:border-gold">
+              <h3 className="text-2xl font-medium tracking-wide">Our Packages</h3>
+              <p className="mx-auto mt-4 max-w-xl text-sm leading-relaxed text-muted-foreground">
+                From timeless bridal glam to polished looks for date nights, photo shoots and
+                events — plus one-on-one trainings that teach you the craft yourself. Every
+                package is tailored to your date, your style and your vision.
+              </p>
+              <div className="mt-6 flex flex-wrap justify-center gap-2 text-xs uppercase tracking-[0.2em] text-foreground/70">
+                <span className="border border-gold/60 px-3 py-1.5">Bridal Makeup</span>
+                <span className="border border-gold/60 px-3 py-1.5">Regular Makeup</span>
+                <span className="border border-gold/60 px-3 py-1.5">Trainings</span>
+              </div>
               <Link
-                key={s.title}
                 to="/services"
-                search={{ category: s.title === "Bridal Makeup" ? "bridal" : "special-events" }}
-                className="group border border-border bg-card p-8 text-center transition-colors hover:border-gold"
+                className="mt-8 inline-flex items-center gap-2 text-xs uppercase tracking-[0.2em] text-crimson"
               >
-                <h3 className="text-2xl font-medium tracking-wide">{s.title}</h3>
-                <p className="mt-4 text-sm leading-relaxed text-muted-foreground">{s.blurb}</p>
-                <span className="mt-6 inline-flex items-center gap-2 text-xs uppercase tracking-[0.2em] text-crimson">
-                  Explore
-                  <ArrowRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-1" />
-                </span>
+                Explore
+                <ArrowRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-1" />
               </Link>
-            ))}
+            </div>
           </div>
         </div>
       </section>
@@ -165,7 +159,7 @@ function Index() {
       <section className="bg-secondary/40 py-20 sm:py-24">
         <div className="mx-auto max-w-6xl px-4 sm:px-6">
           <SectionHeading eyebrow="Portfolio" title="Selected work" />
-          <div className="mt-14 grid grid-cols-2 gap-3 sm:gap-4 lg:grid-cols-3">
+          <div className="mt-14 grid grid-cols-2 gap-3 sm:gap-4 lg:grid-cols-4">
             {homeGallery.map((item) => (
               <img
                 key={item.src}
@@ -178,10 +172,18 @@ function Index() {
               />
             ))}
           </div>
-          <div className="mt-12 text-center">
+          <div className="mt-12 flex flex-wrap items-center justify-center gap-4">
             <Link to="/portfolio" className="btn-outline">
               View full portfolio
             </Link>
+            <a
+              href={portfolioDriveUrl}
+              target="_blank"
+              rel="noreferrer"
+              className="btn-gold"
+            >
+              View more
+            </a>
           </div>
         </div>
       </section>

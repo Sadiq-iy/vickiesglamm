@@ -1,5 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { galleryItems, categories, type GalleryCategory } from "@/lib/gallery-data";
+import { galleryItems, categories, portfolioDriveUrl, type GalleryCategory } from "@/lib/gallery-data";
 
 export const Route = createFileRoute("/portfolio")({
   head: () => ({
@@ -8,12 +8,12 @@ export const Route = createFileRoute("/portfolio")({
       {
         name: "description",
         content:
-          "A curated gallery of bridal and special event makeup looks by Vickies Glam Makeup Studio.",
+          "A curated gallery of bridal and regular makeup looks by Vickies Glam Makeup Studio.",
       },
       { property: "og:title", content: "Portfolio | Vickies Glam Makeup Studio" },
       {
         property: "og:description",
-        content: "Bridal and special event makeup looks by Vickies Glam.",
+        content: "Bridal and regular makeup looks by Vickies Glam.",
       },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
@@ -31,7 +31,7 @@ function Portfolio() {
           <p className="mt-4 text-xs uppercase tracking-[0.3em] text-muted-foreground">Portfolio</p>
           <h1 className="mt-3 text-4xl font-medium tracking-wide sm:text-5xl">The work</h1>
           <p className="mx-auto mt-4 max-w-xl text-sm leading-relaxed text-muted-foreground">
-            A selection of recent bridal and special event looks. Every face is
+            A selection of recent bridal and regular makeup looks. Every face is
             different — every look is built for you.
           </p>
         </div>
@@ -59,6 +59,17 @@ function Portfolio() {
             </div>
           </section>
         ))}
+
+        <div className="mt-12 text-center">
+          <a
+            href={portfolioDriveUrl}
+            target="_blank"
+            rel="noreferrer"
+            className="btn-outline"
+          >
+            View more
+          </a>
+        </div>
 
         <div className="mt-16 text-center">
           <p className="text-sm text-muted-foreground">Love what you see?</p>
