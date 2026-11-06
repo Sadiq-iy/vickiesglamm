@@ -1,15 +1,31 @@
 import { describe, expect, it } from "vitest";
-import { bridalRates, eventRates, parseCategory, ratesForCategory, trainingRates } from "@/lib/service-rates";
+import { bridalRates, regularRates, parseCategory, ratesForCategory, trainingRates } from "@/lib/service-rates";
 
 describe("Service categories", () => {
-  it("shows no bridal rates without an explicit bridal selection", () => {
-    expect(parseCategory(undefined)).toBe("special-events");
-    expect(ratesForCategory(parseCategory(undefined))).toEqual([...eventRates, ...trainingRates]);
+  it("defaults to regular makeup without an explicit selection", () => {
+    expect(parseCategory(undefined)).toBe("regular");
+    expect(parseCategory("special-events")).toBe("regular"); // legacy links
+    expect(ratesForCategory(parseCategory(undefined))).toEqual(regularRates);
     expect(ratesForCategory(parseCategory(undefined)).some((rate) => bridalRates.includes(rate))).toBe(false);
   });
   it("shows only bridal rates when bridal is selected", () => {
     expect(ratesForCategory("bridal")).toEqual(bridalRates);
-    expect(ratesForCategory("bridal").some((rate) => eventRates.includes(rate))).toBe(false);
+    expect(ratesForCategory("bridal").some((rate) => regularRates.includes(rate))).toBe(false);
+  });
+  it("shows only trainings when trainings is selected", () => {
+    expect(ratesForCategory("trainings")).toEqual(trainingRates);
+  });
+});
+
+describe("Current prices", () => {
+  it("sets studio appointment to $120", () => {
+    expect(regularRates.find((r) => r.title === "Studio Appointment")?.price).toBe("$120");
+  });
+  it("sets bridal makeup to $500", () => {
+    expect(bridalRates.find((r) => r.title === "Bridal Makeup")?.price).toBe("$500");
+  });
+  it("sets bridal trial to $150", () => {
+    expect(bridalRates.find((r) => r.title === "Bridal Makeup Trial")?.price).toBe("$150");
   });
 });
 
