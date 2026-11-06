@@ -66,6 +66,7 @@ const PACKAGES = [
   "Professional Makeup Artistry Training — $1,500 CAD",
   "Professional Upgrade Training — $650 CAD",
 ];
+const DEFAULT_PACKAGE: string = PACKAGES[0];
 const TIME_SLOTS = [
   "9:00 AM", "10:00 AM", "11:00 AM", "12:00 PM", "1:00 PM",
   "2:00 PM", "3:00 PM", "4:00 PM", "5:00 PM", "6:00 PM", "7:00 PM",
@@ -123,7 +124,7 @@ function Booking() {
     fullName: "",
     email: "",
     phone: "",
-    service: PACKAGES[0],
+    service: DEFAULT_PACKAGE,
     time: "9:00 AM",
     notes: "",
   });
@@ -178,7 +179,7 @@ function Booking() {
       fullName: "",
       email: "",
       phone: "",
-      service: PACKAGES[0],
+      service: DEFAULT_PACKAGE,
       time: "9:00 AM",
       notes: "",
     });
