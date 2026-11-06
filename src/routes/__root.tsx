@@ -12,6 +12,7 @@ import appCss from "../styles.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
 import { SiteNav } from "@/components/site-nav";
 import { SiteFooter } from "@/components/site-footer";
+import { WhatsAppButton } from "@/components/whatsapp-button";
 
 function ErrorComponent({ error, reset }: ErrorComponentProps) {
   console.error(error);
@@ -87,6 +88,7 @@ function RootComponent() {
           <Outlet />
         </main>
         <SiteFooter />
+        <WhatsAppButton />
       </div>
     </QueryClientProvider>
   );

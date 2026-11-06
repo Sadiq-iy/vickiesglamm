@@ -1,5 +1,11 @@
 import { useState } from "react";
 import { createFileRoute } from "@tanstack/react-router";
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion";
 
 export const Route = createFileRoute("/booking")({
   head: () => ({
@@ -8,7 +14,7 @@ export const Route = createFileRoute("/booking")({
       {
         name: "description",
         content:
-          "Check availability and request your appointment with Vickies Glam Makeup Studio — bridal and special event makeup in Calgary.",
+          "Check availability and request your appointment with Vickies Glam Makeup Studio — bridal and regular makeup in Calgary.",
       },
       { property: "og:title", content: "Booking | Vickies Glam Makeup Studio" },
       {
@@ -50,10 +56,42 @@ const MONTHS = [
   "July", "August", "September", "October", "November", "December",
 ];
 
-const SERVICE_TYPES = ["Bridal Makeup", "Special Event Makeup"];
+const PACKAGES = [
+  "Bridal Makeup — $500",
+  "Bridal Makeup Trial — $150",
+  "Bridesmaids / Bridal Party — $150 per person",
+  "Studio Appointment — $120",
+  "On-Location Appointment — $150",
+  "Personal Makeup Training — $500 CAD",
+  "Professional Makeup Artistry Training — $1,500 CAD",
+  "Professional Upgrade Training — $650 CAD",
+];
 const TIME_SLOTS = [
   "9:00 AM", "10:00 AM", "11:00 AM", "12:00 PM", "1:00 PM",
   "2:00 PM", "3:00 PM", "4:00 PM", "5:00 PM", "6:00 PM", "7:00 PM",
+];
+
+const BOOKING_POLICIES = [
+  {
+    title: "Deposit",
+    body: "A $50 deposit is required to secure your appointment. Your appointment is not confirmed until deposit is received.",
+  },
+  {
+    title: "Rescheduling",
+    body: "Please reschedule at least 48 hours before your appointment.",
+  },
+  {
+    title: "Cancellation",
+    body: "Deposits are non-refundable if cancelled within 48 hours of appointment.",
+  },
+  {
+    title: "Late Policy",
+    body: "Please arrive on time. 15+ minutes late may result in shortened service or cancellation.",
+  },
+  {
+    title: "No-Show",
+    body: "No-shows forfeit deposit.",
+  },
 ];
 
 interface BookingRequest {
@@ -66,16 +104,26 @@ interface BookingRequest {
   notes: string;
 }
 
+function DepositNotice() {
+  return (
+    <p className="border border-gold bg-gold/10 px-4 py-3 text-center text-sm font-medium tracking-wide text-foreground">
+      A booking deposit of $50 is required to secure your appointment.
+    </p>
+  );
+}
+
 function Booking() {
   const now = new Date();
   const [view, setView] = useState({ y: now.getFullYear(), m: now.getMonth() });
   const [selected, setSelected] = useState<string | null>(null);
   const [submitted, setSubmitted] = useState<BookingRequest | null>(null);
+  const [depositAccepted, setDepositAccepted] = useState(false);
+  const [depositError, setDepositError] = useState(false);
   const [form, setForm] = useState({
     fullName: "",
     email: "",
     phone: "",
-    service: "Bridal Makeup",
+    service: PACKAGES[0],
     time: "9:00 AM",
     notes: "",
   });
@@ -106,6 +154,10 @@ function Booking() {
   function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     if (!selected) return;
+    if (!depositAccepted) {
+      setDepositError(true);
+      return;
+    }
     const request: BookingRequest = { date: selected, ...form };
     try {
       const existing = JSON.parse(localStorage.getItem("vg-booking-requests") ?? "[]");
@@ -120,11 +172,13 @@ function Booking() {
   function reset() {
     setSubmitted(null);
     setSelected(null);
+    setDepositAccepted(false);
+    setDepositError(false);
     setForm({
       fullName: "",
       email: "",
       phone: "",
-      service: "Bridal Makeup",
+      service: PACKAGES[0],
       time: "9:00 AM",
       notes: "",
     });
@@ -151,6 +205,9 @@ function Booking() {
               <strong>{submitted.date}</strong> at <strong>{submitted.time}</strong> has been saved.
               A confirmation will arrive at {submitted.email} within 24 hours.
             </p>
+            <div className="mt-6">
+              <DepositNotice />
+            </div>
             <button type="button" onClick={reset} className="btn-outline mt-8">
               Make another request
             </button>
@@ -159,7 +216,8 @@ function Booking() {
           <div className="mt-14 grid gap-12 lg:grid-cols-2">
             {/* Calendar */}
             <div>
-              <div className="flex items-center justify-between">
+              <DepositNotice />
+              <div className="mt-6 flex items-center justify-between">
                 <h2 className="text-2xl font-medium tracking-wide">
                   {MONTHS[m]} {y}
                 </h2>
@@ -285,7 +343,7 @@ function Booking() {
                       </div>
                     </div>
                     <div>
-                      <label htmlFor="service" className="field-label">Service type</label>
+                      <label htmlFor="service" className="field-label">Select package</label>
                       <select
                         id="service"
                         name="service"
@@ -293,7 +351,7 @@ function Booking() {
                         value={form.service}
                         onChange={(e) => setForm({ ...form, service: e.target.value })}
                       >
-                        {SERVICE_TYPES.map((s) => (
+                        {PACKAGES.map((s) => (
                           <option key={s} value={s}>{s}</option>
                         ))}
                       </select>
@@ -324,6 +382,26 @@ function Booking() {
                         onChange={(e) => setForm({ ...form, notes: e.target.value })}
                       />
                     </div>
+                    <div>
+                      <label className="flex cursor-pointer items-start gap-3 text-sm leading-relaxed text-foreground/80">
+                        <input
+                          type="checkbox"
+                          checked={depositAccepted}
+                          onChange={(e) => {
+                            setDepositAccepted(e.target.checked);
+                            if (e.target.checked) setDepositError(false);
+                          }}
+                          className="mt-1 h-4 w-4 shrink-0 accent-[#8B0000]"
+                          aria-describedby={depositError ? "deposit-error" : undefined}
+                        />
+                        I understand a $50 deposit is required to secure my appointment
+                      </label>
+                      {depositError && (
+                        <p id="deposit-error" role="alert" className="mt-2 text-sm font-medium text-crimson">
+                          Please confirm you understand the $50 deposit requirement before submitting.
+                        </p>
+                      )}
+                    </div>
                     <button type="submit" className="btn-gold mt-2">
                       Request booking
                     </button>
@@ -333,6 +411,31 @@ function Booking() {
             </div>
           </div>
         )}
+
+        {/* Booking policies */}
+        <section id="policies" className="mt-20 scroll-mt-28 border-t border-gold pt-12">
+          <div className="mx-auto max-w-3xl">
+            <div className="text-center">
+              <span className="gold-rule" />
+              <h2 className="mt-4 text-3xl font-medium tracking-wide">Booking Policies</h2>
+              <p className="mt-3 text-sm text-muted-foreground">
+                Please read these before requesting your date.
+              </p>
+            </div>
+            <Accordion type="single" collapsible className="mt-10">
+              {BOOKING_POLICIES.map((policy, i) => (
+                <AccordionItem key={policy.title} value={`policy-${i}`}>
+                  <AccordionTrigger className="text-left text-lg font-medium tracking-wide">
+                    {policy.title}
+                  </AccordionTrigger>
+                  <AccordionContent className="text-sm leading-relaxed text-foreground/80">
+                    {policy.body}
+                  </AccordionContent>
+                </AccordionItem>
+              ))}
+            </Accordion>
+          </div>
+        </section>
       </div>
     </div>
   );
