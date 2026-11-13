@@ -36,10 +36,36 @@ const details = [
 
 function Contact() {
   const [sent, setSent] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
-  function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+  async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
-    // Message is displayed locally for now — no backend connected yet.
+    const form = e.currentTarget;
+    const formData = new FormData(form);
+
+    setIsSubmitting(true);
+    try {
+      await fetch("https://formsubmit.co/ajax/vickiesglam6@gmail.com", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+        body: JSON.stringify({
+          _subject: `New Contact Inquiry from ${formData.get("name")}`,
+          _replyto: formData.get("email"),
+          _template: "table",
+          _captcha: "false",
+          Name: formData.get("name"),
+          Email: formData.get("email"),
+          Phone: formData.get("phone") || "Not provided",
+          Message: formData.get("message"),
+        }),
+      });
+    } catch (err) {
+      console.error("Failed to send contact email:", err);
+    }
+    setIsSubmitting(false);
     setSent(true);
   }
 
@@ -84,7 +110,11 @@ function Contact() {
               <div>
                 <h2 className="text-2xl font-medium tracking-wide">Message sent</h2>
                 <p className="mt-3 text-sm leading-relaxed text-foreground/80">
-                  Thank you for reaching out — I'll get back to you within 24 hours.
+                  Thank you for reaching out — your message has been sent to Vickie at{" "}
+                  <a href="mailto:vickiesglam6@gmail.com" className="font-semibold text-crimson underline">
+                    vickiesglam6@gmail.com
+                  </a>
+                  . You'll receive a response within 24 hours.
                 </p>
                 <button type="button" onClick={() => setSent(false)} className="btn-outline mt-8">
                   Send another message
@@ -117,8 +147,12 @@ function Contact() {
                     className="field-input resize-none"
                   />
                 </div>
-                <button type="submit" className="btn-gold mt-2">
-                  Send message
+                <button
+                  type="submit"
+                  disabled={isSubmitting}
+                  className="btn-gold mt-2 disabled:cursor-not-allowed disabled:opacity-60"
+                >
+                  {isSubmitting ? "Sending message..." : "Send message"}
                 </button>
               </div>
             </form>

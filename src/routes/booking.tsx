@@ -120,6 +120,7 @@ function Booking() {
   const [submitted, setSubmitted] = useState<BookingRequest | null>(null);
   const [depositAccepted, setDepositAccepted] = useState(false);
   const [depositError, setDepositError] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [form, setForm] = useState({
     fullName: "",
     email: "",
@@ -152,21 +153,53 @@ function Booking() {
       })
     : null;
 
-  function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+  async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     if (!selected) return;
     if (!depositAccepted) {
       setDepositError(true);
       return;
     }
+
+    setIsSubmitting(true);
     const request: BookingRequest = { date: selected, ...form };
+
+    try {
+      // 1. Send booking details directly to vickiesglam6@gmail.com
+      await fetch("https://formsubmit.co/ajax/vickiesglam6@gmail.com", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+        body: JSON.stringify({
+          _subject: `New Booking Request: ${form.fullName} - ${form.service}`,
+          _replyto: form.email,
+          _template: "table",
+          _captcha: "false",
+          "Client Name": form.fullName,
+          "Client Email": form.email,
+          "Client Phone": form.phone,
+          "Selected Package": form.service,
+          "Requested Date": prettyDate ?? selected,
+          "Preferred Time": form.time,
+          "Deposit Acknowledged": "$50 deposit requirement accepted",
+          "Additional Notes": form.notes || "None provided",
+        }),
+      });
+    } catch (err) {
+      console.error("Failed to send booking email:", err);
+    }
+
     try {
       const existing = JSON.parse(localStorage.getItem("vg-booking-requests") ?? "[]");
       existing.push(request);
       localStorage.setItem("vg-booking-requests", JSON.stringify(existing));
     } catch {
-      // Local storage unavailable — the confirmation still shows below.
+      // Local storage unavailable
     }
+
+    setIsSubmitting(false);
     setSubmitted(request);
   }
 
@@ -203,15 +236,30 @@ function Booking() {
             <h2 className="text-3xl font-medium tracking-wide">Request received</h2>
             <p className="mt-4 text-sm leading-relaxed text-foreground/80">
               Thank you, {submitted.fullName}. Your <strong>{submitted.service}</strong> request for{" "}
-              <strong>{submitted.date}</strong> at <strong>{submitted.time}</strong> has been saved.
-              A confirmation will arrive at {submitted.email} within 24 hours.
+              <strong>{submitted.date}</strong> at <strong>{submitted.time}</strong> has been sent to Vickie at{" "}
+              <a href="mailto:vickiesglam6@gmail.com" className="font-semibold text-crimson underline">
+                vickiesglam6@gmail.com
+              </a>
+              . You will receive a confirmation response at <strong>{submitted.email}</strong> within 24 hours.
             </p>
             <div className="mt-6">
               <DepositNotice />
             </div>
-            <button type="button" onClick={reset} className="btn-outline mt-8">
-              Make another request
-            </button>
+            <div className="mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row">
+              <a
+                href={`https://wa.me/15878372558?text=${encodeURIComponent(
+                  `Hi Vickie! I just submitted a booking request on your website:\n\n• Name: ${submitted.fullName}\n• Service: ${submitted.service}\n• Date: ${submitted.date}\n• Time: ${submitted.time}\n• Phone: ${submitted.phone}`,
+                )}`}
+                target="_blank"
+                rel="noreferrer"
+                className="btn-gold inline-flex items-center gap-2"
+              >
+                Message on WhatsApp
+              </a>
+              <button type="button" onClick={reset} className="btn-outline">
+                Make another request
+              </button>
+            </div>
           </div>
         ) : (
           <div className="mt-14 grid gap-12 lg:grid-cols-2">
@@ -403,8 +451,12 @@ function Booking() {
                         </p>
                       )}
                     </div>
-                    <button type="submit" className="btn-gold mt-2">
-                      Request booking
+                    <button
+                      type="submit"
+                      disabled={isSubmitting}
+                      className="btn-gold mt-2 disabled:cursor-not-allowed disabled:opacity-60"
+                    >
+                      {isSubmitting ? "Sending request..." : "Request booking"}
                     </button>
                   </div>
                 </form>
