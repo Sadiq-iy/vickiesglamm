@@ -43,6 +43,19 @@ const regularPolicy = [
   "If Vickiesglam cancels, your deposit is refunded or transferred.",
 ];
 
+const trainingPolicy = [
+  "All training sessions must be booked in advance. A deposit is required to secure your preferred date.",
+  "Deposits are non-refundable but may be transferred to another available training date with at least 48 hours’ notice.",
+  "Full payment must be completed before training commences, unless otherwise agreed.",
+  "Cancellations or missed sessions without prior notice will result in forfeiture of the deposit.",
+  "Students are expected to arrive on time. Late arrival will not extend the scheduled training time.",
+  "Training is practical and interactive. Students are expected to participate actively, practise demonstrated techniques and come prepared with any requested materials or models.",
+  "All training tools and products must be handled with care. Proper hygiene, brush cleaning and product sanitation are compulsory throughout training.",
+  "Training sessions are held on weekdays, Monday to Thursday. Training dates and times must be agreed upon and confirmed in advance.",
+  "Photographs and videos may be taken during training for promotional purposes, with the student’s consent.",
+  "Certificates of completion are issued where applicable, upon successful completion of the training programme.",
+];
+
 function RateCard({ title, eyebrow, rows, band }: { title: string; eyebrow: string; rows: RateRow[]; band?: string }) {
   return (
     <section className="border border-border bg-card">
@@ -153,9 +166,15 @@ function Rates() {
               </p>
             </div>
             <div className="mt-10">
-              {category === "bridal"
-                ? <PolicyColumn heading="Bridal bookings" items={bridalPolicy} />
-                : <PolicyColumn heading="Studio & appointment bookings" items={regularPolicy} />}
+              {category === "bridal" && (
+                <PolicyColumn heading="Bridal bookings" items={bridalPolicy} />
+              )}
+              {category === "trainings" && (
+                <PolicyColumn heading="Training policies" items={trainingPolicy} />
+              )}
+              {category === "regular" && (
+                <PolicyColumn heading="Studio & appointment bookings" items={regularPolicy} />
+              )}
             </div>
             <p className="mt-10 border-t border-gold/40 pt-6 text-center text-xs leading-relaxed text-muted-foreground">
               Travel, parking, early-morning appointments and additional artists are quoted and
