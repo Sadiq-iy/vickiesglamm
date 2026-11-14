@@ -2,7 +2,6 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import heroAsset from "@/assets/hero-home.jpg.asset.json";
 import aboutAsset from "@/assets/about-vickie-studio.png.asset.json";
 import { homeGallery, portfolioDriveUrl } from "@/lib/gallery-data";
-import { ArrowRight } from "lucide-react";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -138,18 +137,29 @@ function Index() {
                 events — plus one-on-one trainings that teach you the craft yourself. Every
                 package is tailored to your date, your style and your vision.
               </p>
-              <div className="mt-6 flex flex-wrap justify-center gap-2 text-xs uppercase tracking-[0.2em] text-foreground/70">
-                <span className="border border-gold/60 px-3 py-1.5">Bridal Makeup</span>
-                <span className="border border-gold/60 px-3 py-1.5">Regular Makeup</span>
-                <span className="border border-gold/60 px-3 py-1.5">Trainings</span>
+              <div className="mt-8 flex flex-wrap justify-center gap-3 text-xs uppercase tracking-[0.2em]">
+                <Link
+                  to="/services"
+                  search={{ category: "bridal" }}
+                  className="border border-gold/70 bg-card px-4 py-2.5 font-medium text-foreground transition-all duration-200 hover:border-crimson hover:bg-crimson hover:text-crimson-foreground hover:shadow-sm"
+                >
+                  Bridal Makeup
+                </Link>
+                <Link
+                  to="/services"
+                  search={{ category: "regular" }}
+                  className="border border-gold/70 bg-card px-4 py-2.5 font-medium text-foreground transition-all duration-200 hover:border-crimson hover:bg-crimson hover:text-crimson-foreground hover:shadow-sm"
+                >
+                  Regular Makeup
+                </Link>
+                <Link
+                  to="/services"
+                  search={{ category: "trainings" }}
+                  className="border border-gold/70 bg-card px-4 py-2.5 font-medium text-foreground transition-all duration-200 hover:border-crimson hover:bg-crimson hover:text-crimson-foreground hover:shadow-sm"
+                >
+                  Trainings
+                </Link>
               </div>
-              <Link
-                to="/services"
-                className="mt-8 inline-flex items-center gap-2 text-xs uppercase tracking-[0.2em] text-crimson"
-              >
-                Explore
-                <ArrowRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-1" />
-              </Link>
             </div>
           </div>
         </div>
