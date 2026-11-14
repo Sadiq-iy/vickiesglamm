@@ -11,4 +11,5 @@
 - [x] Nov 6 update list: prices (Studio $120, Bridal $500, Trial $150), "Special Events" renamed "Regular Makeup", three package categories (Bridal/Regular/Trainings), homepage single packages widget + Explore, portfolio 4 images + View More (Google Drive), $50 deposit notice + required checkbox, Booking Policies accordion + footer link, "Call, Text or WhatsApp" labels, floating WhatsApp button, PDF rebuilt with new prices
 - [x] Booking & contact email connection to vickiesglam6@gmail.com with instant dispatch, loading states, and direct WhatsApp confirmation
 - [x] Updated Rates page Booking Policies for Trainings category with official 10-point Training Policies
+- [x] Matched policy typography and added respective booking policies under each package on the Packages (Services) page
 - [ ] Awaiting user confirmation: payment method (e-transfer only vs cash accepted); placeholder Instagram handle/hours

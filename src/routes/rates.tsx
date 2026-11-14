@@ -1,7 +1,16 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { Download } from "lucide-react";
 import { ServiceCategories } from "@/components/service-categories";
-import { bridalRates, regularRates, trainingRates, parseCategory, type ServiceRate as RateRow } from "@/lib/service-rates";
+import {
+  bridalRates,
+  regularRates,
+  trainingRates,
+  bridalPolicy,
+  regularPolicy,
+  trainingPolicy,
+  parseCategory,
+  type ServiceRate as RateRow,
+} from "@/lib/service-rates";
 
 export const Route = createFileRoute("/rates")({
   validateSearch: (search: Record<string, unknown>): { category?: "bridal" | "regular" | "trainings" } => ({ category: parseCategory(search['category']) }),
@@ -24,37 +33,6 @@ export const Route = createFileRoute("/rates")({
   }),
   component: Rates,
 });
-
-const bridalPolicy = [
-  "A 50% non-refundable deposit secures your wedding date and is applied toward your total balance.",
-  "The final balance is due 7 days before the wedding date.",
-  "Cancellations 30+ days before the wedding date forfeit the deposit; cancellations within 30 days are not refundable.",
-  "Rescheduling requires at least 30 days' notice and is subject to availability — the deposit transfers to the new date.",
-  "Payment by e-transfer only.",
-  "Bridal parties: minimum 5, maximum 10 guests including the bride; larger parties are quoted with additional time.",
-];
-
-const regularPolicy = [
-  "A booking deposit of $50 is required to secure your appointment. Your appointment is not confirmed until the deposit is received.",
-  "Please reschedule at least 48 hours before your appointment.",
-  "Deposits are non-refundable if cancelled within 48 hours of the appointment.",
-  "Please arrive on time — 15+ minutes late may result in a shortened service or cancellation.",
-  "No-shows forfeit the deposit.",
-  "If Vickiesglam cancels, your deposit is refunded or transferred.",
-];
-
-const trainingPolicy = [
-  "All training sessions must be booked in advance. A deposit is required to secure your preferred date.",
-  "Deposits are non-refundable but may be transferred to another available training date with at least 48 hours’ notice.",
-  "Full payment must be completed before training commences, unless otherwise agreed.",
-  "Cancellations or missed sessions without prior notice will result in forfeiture of the deposit.",
-  "Students are expected to arrive on time. Late arrival will not extend the scheduled training time.",
-  "Training is practical and interactive. Students are expected to participate actively, practise demonstrated techniques and come prepared with any requested materials or models.",
-  "All training tools and products must be handled with care. Proper hygiene, brush cleaning and product sanitation are compulsory throughout training.",
-  "Training sessions are held on weekdays, Monday to Thursday. Training dates and times must be agreed upon and confirmed in advance.",
-  "Photographs and videos may be taken during training for promotional purposes, with the student’s consent.",
-  "Certificates of completion are issued where applicable, upon successful completion of the training programme.",
-];
 
 function RateCard({ title, eyebrow, rows, band }: { title: string; eyebrow: string; rows: RateRow[]; band?: string }) {
   return (
@@ -105,11 +83,11 @@ function PolicyColumn({ heading, items }: { heading: string; items: string[] }) 
   return (
     <div>
       <h3 className="text-2xl font-medium tracking-wide">{heading}</h3>
-      <ul className="mt-5 space-y-3">
+      <ul className="mt-5 space-y-3 font-sans">
         {items.map((item) => (
-          <li key={item} className="flex gap-3 text-sm leading-relaxed text-foreground/80">
+          <li key={item} className="flex gap-3 text-sm leading-relaxed text-foreground/80 font-sans">
             <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-gold" />
-            {item}
+            <span>{item}</span>
           </li>
         ))}
       </ul>
@@ -170,7 +148,7 @@ function Rates() {
                 <PolicyColumn heading="Bridal bookings" items={bridalPolicy} />
               )}
               {category === "trainings" && (
-                <PolicyColumn heading="Training policies" items={trainingPolicy} />
+                <PolicyColumn heading="Training bookings" items={trainingPolicy} />
               )}
               {category === "regular" && (
                 <PolicyColumn heading="Studio & appointment bookings" items={regularPolicy} />
