@@ -145,13 +145,13 @@ function Rates() {
             </div>
             <div className="mt-10">
               {category === "bridal" && (
-                <PolicyColumn heading="Bridal bookings" items={bridalPolicy} />
+                <PolicyColumn heading="Bridal booking policies" items={bridalPolicy} />
               )}
               {category === "trainings" && (
-                <PolicyColumn heading="Training bookings" items={trainingPolicy} />
+                <PolicyColumn heading="Training booking policies" items={trainingPolicy} />
               )}
               {category === "regular" && (
-                <PolicyColumn heading="Studio & appointment bookings" items={regularPolicy} />
+                <PolicyColumn heading="Studio & appointment booking policies" items={regularPolicy} />
               )}
             </div>
             <p className="mt-10 border-t border-gold/40 pt-6 text-center text-xs leading-relaxed text-muted-foreground">
